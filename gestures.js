@@ -41,13 +41,13 @@ AFRAME.registerComponent("gesture-handler", {
     },
   
     handleMovement: function (event) {
-        if (this.isVisible) {
-          this.el.object3D.position.x +=
-            event.detail.positionChange.x * this.data.movementFactor;
-          this.el.object3D.position.y -=
-            event.detail.positionChange.y * this.data.movementFactor;
-        }
-      },      
+      if (this.isVisible) {
+        this.el.object3D.position.x +=
+          event.detail.positionChange.x * this.data.movementFactor;
+        this.el.object3D.position.z +=
+          event.detail.positionChange.z * this.data.movementFactor;
+      }
+    },
   
     handleScale: function (event) {
       if (this.isVisible) {
