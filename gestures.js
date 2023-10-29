@@ -47,6 +47,12 @@ AFRAME.registerComponent("gesture-handler", {
         this.el.object3D.position.y +=
           event.detail.positionChange.y * this.data.movementFactor;
       }
+      console.log(
+        "X:", this.el.object3D.position.x,
+        "Y:", this.el.object3D.position.y,
+        "Z:", this.el.object3D.position.z
+      );
+      
     },
   
     handleScale: function (event) {
