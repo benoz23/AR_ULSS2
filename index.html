@@ -32,13 +32,11 @@
         <a-scene embedded arjs>
         <a-marker preset="hiro">
             <!-- we use cors proxy to avoid cross-origin problems ATTENTION! you need to set up your server -->
-            <a-image
-            src="1b_percorsi.svg"
+            <a-entity
             position="0 0 0"
-            scale="5 2 2"
-            rotation="-90 0 0"
-            smooth-motion="alpha: 0.2; rotationAlpha: 0.2"
-            ></a-image>
+            scale="0.05 0.05 0.05"
+            gltf-model="1b_percorsi.gltf"
+            ></a-entity>
         </a-marker>
         <a-entity camera></a-entity>
         </a-scene>
