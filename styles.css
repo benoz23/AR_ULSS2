@@ -1,8 +1,13 @@
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none !important;
+    color: #fff !important;
+}
+
 .top-bar,
 .bot-bar {
     position: fixed;
     left: 0;
-    z-index: 999;;
+    z-index: 998;
 }
 
 .top-bar {
@@ -17,11 +22,11 @@
     font-family: 'Titillium Web';
     text-align: center;
     color: #fff;
-    text-decoration: none;
 }
 
 .bot-bar p {
     font-size: 1rem;
+    padding: 0 12vw;
 }
 
 .bot-bar strong {
@@ -34,9 +39,22 @@
     margin: 0px auto;
 }
 
-#button-container{
-    position: fixed;
-    top: 50%;
-    left: 0;
+button{
+    position: absolute;
     z-index: 999;
+    border: none;
+    width: 12vw;
+    height: 100%;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+    font-size: 2rem;
+    color: rgba(15, 87, 135, 0.75);
+}
+
+#prev-button {
+    left: 0;
+}
+
+#next-button {
+    right: 0;
 }
