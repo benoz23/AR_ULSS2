@@ -1,75 +1,105 @@
 /* global AFRAME, THREE */
 
+/* global AFRAME, THREE */
+
 AFRAME.registerComponent("gesture-handler", {
-    schema: {
-      enabled: { default: true },
-      movementFactor: { default: 3 }, // Adjust this factor as needed
-      minScale: { default: 0.3 },
-      maxScale: { default: 8 },
-    },
-  
-    init: function () {
-      this.handleScale = this.handleScale.bind(this);
-      this.handleMovement = this.handleMovement.bind(this);
-  
+  schema: {
+    enabled: { default: true },
+    movementFactor: { default: 3 }, // Adjust this factor as needed
+    minScale: { default: 0.3 },
+    maxScale: { default: 8 },
+  },
+
+  init: function () {
+    this.handleScale = this.handleScale.bind(this);
+    this.handleMovement = this.handleMovement.bind(this);
+
+    this.isVisible = false;
+    this.initialPosition = this.el.object3D.position.clone();
+    this.scaleFactor = 1;
+    this.currentContent = 1; // Track the currently visible content
+
+    this.el.sceneEl.addEventListener("markerFound", () => {
+      this.isVisible = true;
+      this.showContent(this.currentContent); // Show the initial content
+    });
+
+    this.el.sceneEl.addEventListener("markerLost", () => {
       this.isVisible = false;
-      this.initialPosition = this.el.object3D.position.clone();
-      this.scaleFactor = 1;
-  
-      this.el.sceneEl.addEventListener("markerFound", (e) => {
-        this.isVisible = true;
-      });
-  
-      this.el.sceneEl.addEventListener("markerLost", (e) => {
-        this.isVisible = false;
-      });
-    },
-  
-    update: function () {
-      if (this.data.enabled) {
-        this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
-        this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
-      } else {
-        this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
-        this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-      }
-    },
-  
-    remove: function () {
+    });
+
+    // Add event listeners for swipe gestures
+    this.el.sceneEl.addEventListener("swiperight", () => {
+      this.showContent(this.currentContent - 1); // Show the previous content
+    });
+
+    this.el.sceneEl.addEventListener("swipeleft", () => {
+      this.showContent(this.currentContent + 1); // Show the next content
+    });
+  },
+
+  update: function () {
+    if (this.data.enabled) {
+      this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
+      this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
+    } else {
       this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
       this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-    },
-  
-    handleMovement: function (event) {
-        if (this.isVisible) {
-          this.el.object3D.position.x +=
-            event.detail.positionChange.x * this.data.movementFactor;
-          this.el.object3D.position.z +=  // Change this line to update the z-axis
-            event.detail.positionChange.y * this.data.movementFactor;  // Change this line to update the z-axis
-        }
-        console.log(
-            "X:", this.el.object3D.position.x,
-            "Y:", this.el.object3D.position.y,
-            "Z:", this.el.object3D.position.z
-        );
-    },
-      
-    handleScale: function (event) {
-      if (this.isVisible) {
-        this.scaleFactor *=
-          1 + event.detail.spreadChange / event.detail.startSpread;
-  
-        this.scaleFactor = Math.min(
-          Math.max(this.scaleFactor, this.data.minScale),
-          this.data.maxScale
-        );
-  
-        this.el.object3D.scale.x = this.scaleFactor;
-        this.el.object3D.scale.y = this.scaleFactor;
-        this.el.object3D.scale.z = this.scaleFactor;
-      }
-    },
-  });
+    }
+  },
+
+  remove: function () {
+    this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
+    this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+  },
+
+  handleMovement: function (event) {
+    if (this.isVisible) {
+      this.el.object3D.position.x +=
+        event.detail.positionChange.x * this.data.movementFactor;
+      this.el.object3D.position.z +=
+        event.detail.positionChange.y * this.data.movementFactor;
+    }
+  },
+
+  handleScale: function (event) {
+    if (this.isVisible) {
+      this.scaleFactor *=
+        1 + event.detail.spreadChange / event.detail.startSpread;
+
+      this.scaleFactor = Math.min(
+        Math.max(this.scaleFactor, this.data.minScale),
+        this.data.maxScale
+      );
+
+      this.el.object3D.scale.x = this.scaleFactor;
+      this.el.object3D.scale.y = this.scaleFactor;
+      this.el.object3D.scale.z = this.scaleFactor;
+    }
+  },
+
+  // Function to show AR content based on content number
+  showContent: function (contentNumber) {
+    // Hide all AR content
+    var contentElements = document.querySelectorAll("a-entity");
+    for (var i = 0; i < contentElements.length; i++) {
+      contentElements[i].setAttribute("visible", false);
+    }
+
+    // Calculate the total number of AR content elements in the scene
+    var totalContent = contentElements.length;
+
+    // Ensure contentNumber stays within valid range
+    contentNumber = Math.max(1, Math.min(totalContent, contentNumber));
+
+    // Show the selected AR content
+    var selectedContent = document.querySelector("#content" + contentNumber);
+    if (selectedContent) {
+      selectedContent.setAttribute("visible", true);
+      this.currentContent = contentNumber;
+    }
+  },
+});
   
 // Component that detects and emits events for touch gestures
 
