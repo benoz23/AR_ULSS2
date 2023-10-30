@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>ULSS 2 - I percorsi del Pronto Soccorso</title>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<head>
+    <title>ULSS 2 - I percorsi del Pronto Soccorso</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <link href='https://fonts.googleapis.com/css?family=Titillium Web' rel='stylesheet'>
-        <link rel="manifest" href="manifest.json" />
-        <link rel="stylesheet" href="styles.css" />
+    <link href='https://fonts.googleapis.com/css?family=Titillium Web' rel='stylesheet'>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
 
-        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <script src="gestures.js"></script>
-    </head>
-    <body style="margin : 0px; overflow: hidden;">
-        <a class="top-bar" href="https://www.aulss2.veneto.it/">
-            <img class="logo" src="img/ULSS_2_logo.svg" alt="Azienda ULSS2 - Marca Trevigiana">
-        </div>
-        <a class="bot-bar" href="https://www.aulss2.veneto.it/">
-            <p>Per maggiori informazioni <br /> <strong>VISITA IL SITO DELL'ULSS2</strong></p>
-        </a>
-        <a-scene
-            embedded
-            arjss="sourceType: webcam; sourceWidth:2560; sourceHeight:1920; displayWidth: 2560; displayHeight: 1920;"
-            renderer="logarithmicDepthBuffer: true;"
-            vr-mode-ui="enabled: false"
-            gesture-detector
-            id="scene">
-            <a-marker type="pattern" url="marker/marker_ulss2.patt" smooth="true">
-                <a-entity
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="gestures.js"></script>
+</head>
+<body style="margin: 0px; overflow: hidden;">
+    <a class="top-bar" href="https://www.aulss2.veneto.it">
+        <img class="logo" src="img/ULSS_2_logo.svg" alt="Azienda ULSS2 - Marca Trevigiana">
+    </a>
+    <a class="bot-bar" href="https://www.aulss2.veneto.it">
+        <p>Per maggiori informazioni <br /> <strong>VISITA IL SITO DELL'ULSS2</strong></p>
+    </a>
+    <a-scene
+        embedded
+        arjs="sourceType: webcam; sourceWidth: 2560; sourceHeight: 1920; displayWidth: 2560; displayHeight: 1920;"
+        renderer="logarithmicDepthBuffer: true;"
+        vr-mode-ui="enabled: false"
+        gesture-detector
+        id="scene">
+        <a-marker type="pattern" url="marker/marker_ulss2.patt" smooth="true">
+            <a-entity
                 id="1b_percorsi"
                 position="0 0 0"
                 scale="1 1 1"
                 gltf-model="scenes/1b_percorsi.gltf"
                 gesture-handler
-                ></a-entity>
-                <a-entity
+            ></a-entity>
+            <a-entity
                 id="1b_percorsi_test"
                 position="0 0 0"
                 scale="0.5 2 1"
                 gltf-model="scenes/1b_percorsi_test.gltf"
                 gesture-handler
-                ></a-entity>
-            </a-marker>
-            <a-entity camera></a-entity>
-        </a-scene>
-    </body>
+            ></a-entity>
+        </a-marker>
+        <a-entity camera gesture-detector></a-entity>
+    </a-scene>
+</body>
 </html>

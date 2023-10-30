@@ -1,262 +1,276 @@
-/* global AFRAME, THREE */
-
 AFRAME.registerComponent("gesture-handler", {
   schema: {
-    enabled: { default: true },
-    movementFactor: { default: 5 },
-    minScale: { default: 0.3 },
-    maxScale: { default: 8 },
-    swipeThreshold: { default: 0.2 },
+      enabled: { default: true },
+      movementFactor: { default: 5 },
+      minScale: { default: 0.3 },
+      maxScale: { default: 8 },
   },
 
   init: function () {
-    this.handleScale = this.handleScale.bind(this);
-    this.handleMovement = this.handleMovement.bind(this);
-    this.handleSwipe = this.handleSwipe.bind(this);
+      this.handleScale = this.handleScale.bind(this);
+      this.handleMovement = this.handleMovement.bind(this);
 
-    this.isVisible = false;
-    this.el.sceneEl.addEventListener("markerFound", (e) => {
-      this.isVisible = true;
-    });
-
-    this.el.sceneEl.addEventListener("markerLost", (e) => {
       this.isVisible = false;
-    });
+      this.initialPosition = this.el.object3D.position.clone();
+      this.scaleFactor = 1;
 
-    this.currentEntityIndex = 0;
-    this.entities = document.querySelectorAll("[gesture-handler]");
-    this.swipeStartPosition = { x: 0, y: 0 };
+      this.currentEntityIndex = 0;
+      this.entities = this.el.parentElement.children;
+
+      this.el.sceneEl.addEventListener("markerFound", (e) => {
+          this.isVisible = true;
+      });
+
+      this.el.sceneEl.addEventListener("markerLost", (e) => {
+          this.isVisible = false;
+      });
   },
 
   update: function () {
-    if (this.data.enabled) {
-      this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
-      this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
-      this.el.sceneEl.addEventListener("onefingerswipe", this.handleSwipe);
-    } else {
-      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
-      this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-      this.el.sceneEl.removeEventListener("onefingerswipe", this.handleSwipe);
-    }
+      if (this.data.enabled) {
+          this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
+          this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
+          this.el.sceneEl.addEventListener("swipeleft", this.handleSwipeLeft);
+          this.el.sceneEl.addEventListener("swiperight", this.handleSwipeRight);
+      } else {
+          this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
+          this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+          this.el.sceneEl.removeEventListener("swipeleft", this.handleSwipeLeft);
+          this.el.sceneEl.removeEventListener("swiperight", this.handleSwipeRight);
+      }
   },
 
   remove: function () {
-    this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
-    this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-    this.el.sceneEl.removeEventListener("onefingerswipe", this.handleSwipe);
+      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
+      this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+      this.el.sceneEl.removeEventListener("swipeleft", this.handleSwipeLeft);
+      this.el.sceneEl.removeEventListener("swiperight", this.handleSwipeRight);
   },
 
   handleMovement: function (event) {
-    if (this.isVisible) {
-      this.el.object3D.position.x +=
-        event.detail.positionChange.x * this.data.movementFactor;
-      this.el.object3D.position.z +=
-        event.detail.positionChange.y * this.data.movementFactor;
-    }
+      if (this.isVisible) {
+          this.el.object3D.position.x +=
+              event.detail.positionChange.x * this.data.movementFactor;
+          this.el.object3D.position.z +=
+              event.detail.positionChange.y * this.data.movementFactor;
+
+          console.log(
+              "X:", this.el.object3D.position.x,
+              "Y:", this.el.object3D.position.y,
+              "Z:", this.el.object3D.position.z
+          );
+      }
   },
 
   handleScale: function (event) {
-    if (this.isVisible) {
-      this.scaleFactor *=
-        1 + event.detail.spreadChange / event.detail.startSpread;
-      this.scaleFactor = Math.min(
-        Math.max(this.scaleFactor, this.data.minScale),
-        this.data.maxScale
-      );
-      this.el.object3D.scale.x = this.scaleFactor;
-      this.el.object3D.scale.y = this.scaleFactor;
-      this.el.object3D.scale.z = this.scaleFactor;
-    }
-  },
+      if (this.isVisible) {
+          this.scaleFactor *=
+              1 + event.detail.spreadChange / event.detail.startSpread;
 
-  handleSwipe: function (event) {
-    if (this.isVisible) {
-      if (event.detail.direction === "left") {
-        this.showNextEntity();
-      } else if (event.detail.direction === "right") {
-        this.showPreviousEntity();
+          this.scaleFactor = Math.min(
+              Math.max(this.scaleFactor, this.data.minScale),
+              this.data.maxScale
+          );
+
+          this.el.object3D.scale.x = this.scaleFactor;
+          this.el.object3D.scale.y = this.scaleFactor;
+          this.el.object3D.scale.z = this.scaleFactor;
       }
-    }
   },
 
-  showNextEntity: function () {
-    this.entities[this.currentEntityIndex].setAttribute("visible", false);
-    this.currentEntityIndex =
-      (this.currentEntityIndex + 1) % this.entities.length;
-    this.entities[this.currentEntityIndex].setAttribute("visible", true);
+  handleSwipeLeft: function () {
+      if (this.isVisible) {
+          this.currentEntityIndex++;
+          if (this.currentEntityIndex >= this.entities.length) {
+              this.currentEntityIndex = 0;
+          }
+          this.showEntity(this.currentEntityIndex);
+      }
   },
 
-  showPreviousEntity: function () {
-    this.entities[this.currentEntityIndex].setAttribute("visible", false);
-    this.currentEntityIndex =
-      (this.currentEntityIndex - 1 + this.entities.length) % this.entities.length;
-    this.entities[this.currentEntityIndex].setAttribute("visible", true);
+  handleSwipeRight: function () {
+      if (this.isVisible) {
+          this.currentEntityIndex--;
+          if (this.currentEntityIndex < 0) {
+              this.currentEntityIndex = this.entities.length - 1;
+          }
+          this.showEntity(this.currentEntityIndex);
+      }
+  },
+
+  showEntity: function (index) {
+      for (let i = 0; i < this.entities.length; i++) {
+          if (i === index) {
+              this.entities[i].setAttribute("visible", true);
+          } else {
+              this.entities[i].setAttribute("visible", false);
+          }
+      }
   },
 });
 
 // Component that detects and emits events for touch gestures
-
 AFRAME.registerComponent("gesture-detector", {
-schema: {
-  element: { default: "" }
-},
+  schema: {
+      element: { default: "" },
+  },
 
-init: function() {
-  this.targetElement =
-    this.data.element && document.querySelector(this.data.element);
+  init: function () {
+      this.targetElement =
+          this.data.element && document.querySelector(this.data.element);
 
-  if (!this.targetElement) {
-    this.targetElement = this.el;
-  }
-
-  this.internalState = {
-    previousState: null
-  };
-
-  this.emitGestureEvent = this.emitGestureEvent.bind(this);
-
-  this.targetElement.addEventListener("touchstart", this.emitGestureEvent);
-
-  this.targetElement.addEventListener("touchend", this.emitGestureEvent);
-
-  this.targetElement.addEventListener("touchmove", this.emitGestureEvent);
-},
-
-remove: function() {
-  this.targetElement.removeEventListener("touchstart", this.emitGestureEvent);
-
-  this.targetElement.removeEventListener("touchend", this.emitGestureEvent);
-
-  this.targetElement.removeEventListener("touchmove", this.emitGestureEvent);
-},
-
-emitGestureEvent(event) {
-  const currentState = this.getTouchState(event);
-
-  const previousState = this.internalState.previousState;
-
-  const gestureContinues =
-    previousState &&
-    currentState &&
-    currentState.touchCount == previousState.touchCount;
-
-  const gestureEnded = previousState && !gestureContinues;
-
-  const gestureStarted = currentState && !gestureContinues;
-
-  if (gestureEnded) {
-    const eventName =
-      this.getEventPrefix(previousState.touchCount) + "fingerend";
-
-    this.el.emit(eventName, previousState);
-
-    this.internalState.previousState = null;
-  }
-
-  if (gestureStarted) {
-    currentState.startTime = performance.now();
-
-    currentState.startPosition = currentState.position;
-
-    currentState.startSpread = currentState.spread;
-
-    const eventName =
-      this.getEventPrefix(currentState.touchCount) + "fingerstart";
-
-    this.el.emit(eventName, currentState);
-
-    this.internalState.previousState = currentState;
-  }
-
-  if (gestureContinues) {
-    const eventDetail = {
-      positionChange: {
-        x: currentState.position.x - previousState.position.x,
-
-        y: currentState.position.y - previousState.position.y
+      if (!this.targetElement) {
+          this.targetElement = this.el;
       }
-    };
 
-    if (currentState.spread) {
-      eventDetail.spreadChange = currentState.spread - previousState.spread;
-    }
+      this.internalState = {
+          previousState: null,
+      };
 
-    // Update state with new data
+      this.emitGestureEvent = this.emitGestureEvent.bind(this);
 
-    Object.assign(previousState, currentState);
+      this.targetElement.addEventListener("touchstart", this.emitGestureEvent);
 
-    // Add state data to event detail
+      this.targetElement.addEventListener("touchend", this.emitGestureEvent);
 
-    Object.assign(eventDetail, previousState);
+      this.targetElement.addEventListener("touchmove", this.emitGestureEvent);
+  },
 
-    const eventName =
-      this.getEventPrefix(currentState.touchCount) + "fingermove";
+  remove: function () {
+      this.targetElement.removeEventListener("touchstart", this.emitGestureEvent);
 
-    this.el.emit(eventName, eventDetail);
-  }
-},
+      this.targetElement.removeEventListener("touchend", this.emitGestureEvent);
 
-getTouchState: function(event) {
-  if (event.touches.length === 0) {
-    return null;
-  }
+      this.targetElement.removeEventListener("touchmove", this.emitGestureEvent);
+  },
 
-  // Convert event.touches to an array so we can use reduce
+  emitGestureEvent(event) {
+      const currentState = this.getTouchState(event);
 
-  const touchList = [];
+      const previousState = this.internalState.previousState;
 
-  for (let i = 0; i < event.touches.length; i++) {
-    touchList.push(event.touches[i]);
-  }
+      const gestureContinues =
+          previousState &&
+          currentState &&
+          currentState.touchCount == previousState.touchCount;
 
-  const touchState = {
-    touchCount: touchList.length
-  };
+      const gestureEnded = previousState && !gestureContinues;
 
-  // Calculate center of all current touches
+      const gestureStarted = currentState && !gestureContinues;
 
-  const centerPositionRawX =
-    touchList.reduce((sum, touch) => sum + touch.clientX, 0) /
-    touchList.length;
+      if (gestureEnded) {
+          const eventName =
+              this.getEventPrefix(previousState.touchCount) + "fingerend";
 
-  const centerPositionRawY =
-    touchList.reduce((sum, touch) => sum + touch.clientY, 0) /
-    touchList.length;
+          this.el.emit(eventName, previousState);
 
-  touchState.positionRaw = { x: centerPositionRawX, y: centerPositionRawY };
+          this.internalState.previousState = null;
+      }
 
-  // Scale touch position and spread by average of window dimensions
+      if (gestureStarted) {
+          currentState.startTime = performance.now();
 
-  const screenScale = 2 / (window.innerWidth + window.innerHeight);
+          currentState.startPosition = currentState.position;
 
-  touchState.position = {
-    x: centerPositionRawX * screenScale,
-    y: centerPositionRawY * screenScale
-  };
+          currentState.startSpread = currentState.spread;
 
-  // Calculate average spread of touches from the center point
+          const eventName =
+              this.getEventPrefix(currentState.touchCount) + "fingerstart";
 
-  if (touchList.length >= 2) {
-    const spread =
-      touchList.reduce((sum, touch) => {
-        return (
-          sum +
-          Math.sqrt(
-            Math.pow(centerPositionRawX - touch.clientX, 2) +
-              Math.pow(centerPositionRawY - touch.clientY, 2)
-          )
-        );
-      }, 0) / touchList.length;
+          this.el.emit(eventName, currentState);
 
-    touchState.spread = spread * screenScale;
-  }
+          this.internalState.previousState = currentState;
+      }
 
-  return touchState;
-},
+      if (gestureContinues) {
+          const eventDetail = {
+              positionChange: {
+                  x: currentState.position.x - previousState.position.x,
 
-getEventPrefix(touchCount) {
-  const numberNames = ["one", "two", "three", "many"];
+                  y: currentState.position.y - previousState.position.y,
+              },
+          };
 
-  return numberNames[Math.min(touchCount, 4) - 1];
-}
+          if (currentState.spread) {
+              eventDetail.spreadChange = currentState.spread - previousState.spread;
+          }
+
+          // Update state with new data
+
+          Object.assign(previousState, currentState);
+
+          // Add state data to event detail
+
+          Object.assign(eventDetail, previousState);
+
+          const eventName =
+              this.getEventPrefix(currentState.touchCount) + "fingermove";
+
+          this.el.emit(eventName, eventDetail);
+      }
+  },
+
+  getTouchState: function (event) {
+      if (event.touches.length === 0) {
+          return null;
+      }
+
+      // Convert event.touches to an array so we can use reduce
+
+      const touchList = [];
+
+      for (let i = 0; i < event.touches.length; i++) {
+          touchList.push(event.touches[i]);
+      }
+
+      const touchState = {
+          touchCount: touchList.length,
+      };
+
+      // Calculate center of all current touches
+
+      const centerPositionRawX =
+          touchList.reduce((sum, touch) => sum + touch.clientX, 0) /
+          touchList.length;
+
+      const centerPositionRawY =
+          touchList.reduce((sum, touch) => sum + touch.clientY, 0) /
+          touchList.length;
+
+      touchState.positionRaw = { x: centerPositionRawX, y: centerPositionRawY };
+
+      // Scale touch position and spread by average of window dimensions
+
+      const screenScale = 2 / (window.innerWidth + window.innerHeight);
+
+      touchState.position = {
+          x: centerPositionRawX * screenScale,
+          y: centerPositionRawY * screenScale,
+      };
+
+      // Calculate average spread of touches from the center point
+
+      if (touchList.length >= 2) {
+          const spread =
+              touchList.reduce((sum, touch) => {
+                  return (
+                      sum +
+                      Math.sqrt(
+                          Math.pow(centerPositionRawX - touch.clientX, 2) +
+                          Math.pow(centerPositionRawY - touch.clientY, 2)
+                      )
+                  );
+              }, 0) / touchList.length;
+
+          touchState.spread = spread * screenScale;
+      }
+
+      return touchState;
+  },
+
+  getEventPrefix(touchCount) {
+      const numberNames = ["one", "two", "three", "many"];
+
+      return numberNames[Math.min(touchCount, 4) - 1];
+  },
 });
