@@ -33,3 +33,10 @@
     padding: 2vh 3vh 1vh 3vh;
     margin: 0px auto;
 }
+
+#button-container{
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 999;
+}
