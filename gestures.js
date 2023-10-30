@@ -1,106 +1,75 @@
+/* global AFRAME, THREE */
+
 AFRAME.registerComponent("gesture-handler", {
-  schema: {
-    enabled: { default: true },
-    movementFactor: { default: 3 },
-    minScale: { default: 0.3 },
-    maxScale: { default: 8 },
-  },
-
-  init: function () {
-    this.handleScale = this.handleScale.bind(this);
-    this.handleMovement = this.handleMovement.bind(this);
-    this.handleSwipe = this.handleSwipe.bind(this);
-
-    this.isVisible = false;
-    this.initialPosition = this.el.object3D.position.clone();
-    this.scaleFactor = 1;
-    this.swipeThreshold = 0.1;
-
-    // Define the entities to switch between
-    this.entities = [];
-    this.currentEntityIndex = 0;
-
-    this.el.sceneEl.addEventListener("markerFound", (e) => {
-      this.isVisible = true;
-    });
-
-    this.el.sceneEl.addEventListener("markerLost", (e) => {
+    schema: {
+      enabled: { default: true },
+      movementFactor: { default: 3 }, // Adjust this factor as needed
+      minScale: { default: 0.3 },
+      maxScale: { default: 8 },
+    },
+  
+    init: function () {
+      this.handleScale = this.handleScale.bind(this);
+      this.handleMovement = this.handleMovement.bind(this);
+  
       this.isVisible = false;
-    });
-  },
-
-  update: function () {
-    if (this.data.enabled) {
-      this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
-      this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
-      this.el.sceneEl.addEventListener("swipe", this.handleSwipe);
-    } else {
+      this.initialPosition = this.el.object3D.position.clone();
+      this.scaleFactor = 1;
+  
+      this.el.sceneEl.addEventListener("markerFound", (e) => {
+        this.isVisible = true;
+      });
+  
+      this.el.sceneEl.addEventListener("markerLost", (e) => {
+        this.isVisible = false;
+      });
+    },
+  
+    update: function () {
+      if (this.data.enabled) {
+        this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
+        this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
+      } else {
+        this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
+        this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+      }
+    },
+  
+    remove: function () {
       this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
       this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-      this.el.sceneEl.removeEventListener("swipe", this.handleSwipe);
-    }
-
-    // Get the entities to switch between
-    this.entities = this.el.querySelectorAll('[gesture-handler]');
-  },
-
-  remove: function () {
-    this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
-    this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
-    this.el.sceneEl.removeEventListener("swipe", this.handleSwipe);
-  },
-
-  handleMovement: function (event) {
-    if (this.isVisible) {
-      this.el.object3D.position.x +=
-        event.detail.positionChange.x * this.data.movementFactor;
-      this.el.object3D.position.z +=
-        event.detail.positionChange.y * this.data.movementFactor;
-    }
-  },
-
-  handleScale: function (event) {
-    if (this.isVisible) {
-      this.scaleFactor *=
-        1 + event.detail.spreadChange / event.detail.startSpread;
-
-      this.scaleFactor = Math.min(
-        Math.max(this.scaleFactor, this.data.minScale),
-        this.data.maxScale
-      );
-
-      this.el.object3D.scale.x = this.scaleFactor;
-      this.el.object3D.scale.y = this.scaleFactor;
-      this.el.object3D.scale.z = this.scaleFactor;
-    }
-  },
-
-  handleSwipe: function (event) {
-    if (this.isVisible) {
-      const swipeDirection = event.detail.direction;
-      if (swipeDirection === "left") {
-        // Switch to the next entity
-        this.showEntity(this.currentEntityIndex + 1);
-      } else if (swipeDirection === "right") {
-        // Switch to the previous entity
-        this.showEntity(this.currentEntityIndex - 1);
+    },
+  
+    handleMovement: function (event) {
+        if (this.isVisible) {
+          this.el.object3D.position.x +=
+            event.detail.positionChange.x * this.data.movementFactor;
+          this.el.object3D.position.z +=  // Change this line to update the z-axis
+            event.detail.positionChange.y * this.data.movementFactor;  // Change this line to update the z-axis
+        }
+        console.log(
+            "X:", this.el.object3D.position.x,
+            "Y:", this.el.object3D.position.y,
+            "Z:", this.el.object3D.position.z
+        );
+    },
+      
+    handleScale: function (event) {
+      if (this.isVisible) {
+        this.scaleFactor *=
+          1 + event.detail.spreadChange / event.detail.startSpread;
+  
+        this.scaleFactor = Math.min(
+          Math.max(this.scaleFactor, this.data.minScale),
+          this.data.maxScale
+        );
+  
+        this.el.object3D.scale.x = this.scaleFactor;
+        this.el.object3D.scale.y = this.scaleFactor;
+        this.el.object3D.scale.z = this.scaleFactor;
       }
-    }
-  },
-
-  showEntity: function (entityIndex) {
-    if (entityIndex >= 0 && entityIndex < this.entities.length) {
-      // Hide the current entity
-      this.entities[this.currentEntityIndex].setAttribute("visible", false);
-
-      // Show the new entity
-      this.entities[entityIndex].setAttribute("visible", true);
-
-      // Update the current entity index
-      this.currentEntityIndex = entityIndex;
-    }
-  },
-});
+    },
+  });
   
 // Component that detects and emits events for touch gestures
 
