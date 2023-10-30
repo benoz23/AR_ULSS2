@@ -1,7 +1,35 @@
-.top-bar {
+.top-bar,
+.bot-bar {
     position: fixed;
-    width: 100%;
-    height: 10vh;
-    background-color: white;
     left: 0;
+    z-index: 999;;
+}
+
+.top-bar {
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.bot-bar {
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(15, 87, 135, 0.75);
+    font-family: 'Titillium Web';
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.bot-bar p {
+    font-size: 1rem;
+}
+
+.bot-bar strong {
+    font-size: 1.5rem;
+}
+
+.logo {
+    height: 10vh;
+    padding: 2vh 3vh 1vh 3vh;
+    margin: 0px auto;
 }
