@@ -26,14 +26,7 @@ AFRAME.registerComponent("gesture-handler", {
 
     this.el.sceneEl.addEventListener("markerLost", (e) => {
       this.isVisible = false;
-      // If the scene is locked, show the content even when the marker is lost
-      if (this.isSceneLocked) {
-        this.el.object3D.visible = true;
-      }
     });
-
-    // Lock state
-    this.isSceneLocked = false;
   },
 
   update: function () {
@@ -48,15 +41,7 @@ AFRAME.registerComponent("gesture-handler", {
     }
 
     // Get the entities to switch between
-    this.entities = this.el.sceneEl.querySelectorAll('[gesture-handler]');
-
-    // Add an event listener to the lock button
-    const lockButton = document.getElementById("lockButton");
-    if (lockButton) {
-      lockButton.addEventListener("click", () => {
-        this.toggleSceneLock();
-      });
-    }
+    this.entities = this.el.querySelectorAll('[gesture-handler]');
   },
 
   remove: function () {
@@ -66,7 +51,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleMovement: function (event) {
-    if (this.isVisible && !this.isSceneLocked) {
+    if (this.isVisible) {
       this.el.object3D.position.x +=
         event.detail.positionChange.x * this.data.movementFactor;
       this.el.object3D.position.z +=
@@ -75,7 +60,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleScale: function (event) {
-    if (this.isVisible && !this.isSceneLocked) {
+    if (this.isVisible) {
       this.scaleFactor *=
         1 + event.detail.spreadChange / event.detail.startSpread;
 
@@ -91,7 +76,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleSwipe: function (event) {
-    if (this.isVisible && !this.isSceneLocked) {
+    if (this.isVisible) {
       const swipeDirection = event.detail.direction;
       if (swipeDirection === "left") {
         // Switch to the next entity
@@ -100,22 +85,6 @@ AFRAME.registerComponent("gesture-handler", {
         // Switch to the previous entity
         this.showEntity(this.currentEntityIndex - 1);
       }
-    }
-  },
-
-  toggleSceneLock: function () {
-    // Toggle the scene lock status
-    this.isSceneLocked = !this.isSceneLocked;
-
-    // If the scene is locked, show the content even when the marker is lost
-    if (this.isSceneLocked) {
-      this.el.object3D.visible = true;
-    }
-
-    // Update the lock button text
-    const lockButton = document.getElementById("lockButton");
-    if (lockButton) {
-      lockButton.innerText = this.isSceneLocked ? "Unlock Scene" : "Lock Scene";
     }
   },
 
@@ -132,7 +101,7 @@ AFRAME.registerComponent("gesture-handler", {
     }
   },
 });
-
+  
 // Component that detects and emits events for touch gestures
 
 AFRAME.registerComponent("gesture-detector", {
