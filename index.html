@@ -13,7 +13,7 @@
     <body style="margin : 0px; overflow: hidden;">
         <a-scene
             embedded
-            arjs
+            arjss="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;"
             renderer="logarithmicDepthBuffer: true;"
             vr-mode-ui="enabled: false"
             gesture-detector
@@ -31,3 +31,5 @@
         </a-scene>
     </body>
 </html>
+
+<a-scene embedded arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;"></a-scene>
