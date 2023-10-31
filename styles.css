@@ -15,6 +15,11 @@ a, a:link, a:visited, a:hover, a:active {
     background-color: rgba(255, 255, 255, 0.75);
 }
 
+.logo {
+    padding: 2vh 3vh 1vh 3vh;
+    margin: 0px auto;
+}
+
 .bot-bar {
     width: 100%;
     bottom: 0;
@@ -26,17 +31,13 @@ a, a:link, a:visited, a:hover, a:active {
 
 .bot-bar p {
     font-size: 1rem;
+    margin: 1vh 0;
     padding: 0 12vw;
 }
 
-.bot-bar strong {
-    font-size: 1.5rem;
-}
 
-.logo {
-    height: 10vh;
-    padding: 2vh 3vh 1vh 3vh;
-    margin: 0px auto;
+.bot-bar strong {
+    font-size: 1.25rem;
 }
 
 button{
@@ -57,4 +58,21 @@ button{
 
 #next-button {
     right: 0;
+}
+
+@media (orientation: landscape) {
+    .logo {
+        width: 10vw;
+    }
+    button{
+        width: 8vw;
+    }    
+}
+@media (orientation: portrait) {
+    .logo {
+        width: 20vw;
+    }
+    button{
+        width: 12vw;
+    }    
 }
