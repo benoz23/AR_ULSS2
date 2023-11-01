@@ -32,7 +32,7 @@
             gesture-detector
             id="scene">
             <a-assets>
-                <img id="test" src="img/ULSS_2_logo.svg">
+                <img id="1_percorsi" src="img/1_percorsi.svg">
             </a-assets>
             <a-marker type="pattern" url="marker/marker_ulss2.patt" smooth="true">
                 <!-- <a-entity
@@ -43,10 +43,11 @@
                     gesture-handler
                 ></a-entity> -->
                 <a-image
-                    id="test-img"
-                    src="#test"
+                    id="1_percorsi_ent"
+                    src="#1_percorsi"
+                    scale="1 1 1"
                     rotation="90 0 0"
-                    gesture-detector
+                    gesture-handler
                     ></a-image>
             </a-marker>
             <a-entity camera></a-entity>
