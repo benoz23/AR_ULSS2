@@ -1,4 +1,5 @@
-var entityList = document.querySelectorAll("a-entity:not([camera])"); // Exclude entities with the "camera" attribute
+var marker = document.querySelector("a-marker");
+var entityList = marker.querySelectorAll("a-entity:not([camera])"); // Exclude entities with the "camera" attribute
 var currentEntityIndex = 0;
 var prevButton = document.getElementById("prev-button");
 var nextButton = document.getElementById("next-button");
