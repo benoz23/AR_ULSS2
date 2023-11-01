@@ -32,20 +32,17 @@
             gesture-detector
             id="scene">
             <a-marker type="pattern" url="marker/marker_ulss2.patt" smooth="true">
-                <a-entity
+                <a-assets>
+                    <img id="test" src="img/ulss_2_logo.svg">
+                </a-assets>
+                <!-- <a-entity
                     id="1b_percorsi"
                     position="0 0 0"
                     scale="1 1 1"
                     gltf-model="scenes/1b_percorsi.gltf"
                     gesture-handler
-                ></a-entity>
-                <a-entity
-                    id="1b_percorsi_test"
-                    position="0 0 0"
-                    scale="0.5 2 1"
-                    gltf-model="scenes/1b_percorsi_test.gltf"
-                    gesture-handler
-                ></a-entity>
+                ></a-entity> -->
+                <a-image src="#test"></a-image>
             </a-marker>
             <a-entity camera></a-entity>
         </a-scene>
