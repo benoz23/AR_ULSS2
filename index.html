@@ -32,7 +32,8 @@
             gesture-detector
             id="scene">
             <a-assets>
-                <img id="1_percorsi" src="img/1_percorsi.png">
+                <img id="1_percorsi" src="img/1_percorsi_2x1.png">
+                <img id="2_triage" src="img/2_triage_7x10.png">
             </a-assets>
             <a-marker type="pattern" url="marker/marker_ulss2.patt" smooth="true">
                 <a-entity
@@ -50,7 +51,15 @@
                     height="1"
                     rotation="270 0 0"
                     gesture-handler
-                    ></a-image>
+                ></a-image>
+                <a-image
+                    id="1_percorsi_ent"
+                    src="#1_percorsi"
+                    width="2"
+                    height="1"
+                    rotation="270 0 0"
+                    gesture-handler
+                ></a-image>
             </a-marker>
             <a-entity camera></a-entity>
         </a-scene>
