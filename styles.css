@@ -22,7 +22,7 @@ a, a:link, a:visited, a:hover, a:active {
 
 .bot-bar {
     width: 100%;
-    bottom: 50%;
+    top: 50%;
     background-color: rgba(15, 87, 135, 0.75);
     font-family: 'Titillium Web';
     text-align: center;
