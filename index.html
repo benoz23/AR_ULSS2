@@ -20,9 +20,9 @@
             <img class="logo" src="img/ULSS_2_logo.svg" alt="Azienda ULSS2 - Marca Trevigiana">
         </a>
         <div class="bot-bar">
-            <button id="prev-button" onclick="changeChild(-1)"><i class="fa-solid fa-caret-left"></i></button>
+            <button id="prev-button" onclick="prev"><i class="fa-solid fa-caret-left"></i></button>
             <!--<p><a href="https://www.aulss2.veneto.it">Per maggiori informazioni<br /><strong>VISITA IL SITO DELL'ULSS2</strong></a></p>-->
-            <button id="next-button" onclick="changeChild(1)"><i class="fa-solid fa-caret-right"></i></button>
+            <button id="next-button" onclick="next"><i class="fa-solid fa-caret-right"></i></button>
         </div>
         <!--<a-scene
             embedded
@@ -58,7 +58,7 @@
             
             <!--<a-ring position="0 1.525 -0" radius-inner="0.15" radius-outer="0.3" src="#1_percorsi"></a-ring>-->
         
-            <!--<a-camera id="camera" position="-0.175 1.6 0"></a-camera>-->
+            <a-camera id="camera" position="-0.175 1.6 0"></a-camera>
         </a-scene>
         <!--<script src="prevnext.js"></script>-->
     </body>
