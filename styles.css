@@ -21,6 +21,7 @@ a, a:link, a:visited, a:hover, a:active {
 }
 
 .bot-bar {
+    min-heigth: 20vh;
     width: 100%;
     top: 500px;
     background-color: rgba(15, 87, 135, 0.75);
