@@ -1,23 +1,26 @@
-// JavaScript
-const container = document.getElementById('container');
+// Ottenere un riferimento all'elemento container
+var container = document.querySelector('#container');
 
-// Funzione per animare il container
-function animateContainer(toPosition) {
-    container.setAttribute('animation__001', {
-        property: 'position',
-        to: toPosition,
-        startEvents: 'click_next'
-    });
-    container.emit('click_next', null, false);
-}
+// Ottenere un riferimento agli elementi prev e next
+var prevButton = document.querySelector('#prev-button');
+var nextButton = document.querySelector('#next-button');
 
-// Gestione dei pulsanti "prev" e "next"
-function prev() {
-    const toPosition = { x: -0.4, y: 1.525, z: -0.15 };
-    animateContainer(toPosition);
-}
+// Aggiungere un gestore per il pulsante "prev"
+prevButton.addEventListener('click', function () {
+  container.setAttribute('animation__prev', {
+    property: 'position',
+    to: {x: 0.4, y: 1.525, z: -0.15},
+    startEvents: 'click_prev'
+  });
+  container.emit('click_prev', null, false);
+});
 
-function next() {
-    const toPosition = { x: +0.4, y: 1.525, z: -0.15 };
-    animateContainer(toPosition);
-}
+// Aggiungere un gestore per il pulsante "next"
+nextButton.addEventListener('click', function () {
+  container.setAttribute('animation__next', {
+    property: 'position',
+    to: {x: 0.4, y: 1.525, z: -0.15},
+    startEvents: 'click_next'
+  });
+  container.emit('click_next', null, false);
+});
