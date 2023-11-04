@@ -60,6 +60,11 @@ button{
     right: 0;
 }
 
+#scene {
+    z-index: 999;
+    pointer-events: none;
+}
+
 @media (orientation: landscape) {
     .logo {
         width: 10vw;
