@@ -61,7 +61,7 @@ button{
 }
 
 #scene {
-    z-index: -1;
+    
 }
 
 @media (orientation: landscape) {
