@@ -1,7 +1,7 @@
 document.getElementById('prev-button').onclick = function() {
-    document.querySelector('#container').emit('prevButtonClick');
+    document.querySelector('#camera').emit('prevButtonClick');
 };
 
 document.getElementById('next-button').onclick = function() {
-    document.querySelector('#container').emit('nextButtonClick');
+    document.querySelector('#camera').emit('nextButtonClick');
 };
