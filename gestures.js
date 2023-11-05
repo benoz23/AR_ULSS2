@@ -43,32 +43,18 @@ AFRAME.registerComponent("gesture-handler", {
   handleMovement: function (event) {
       this.isVisible = true;
       if (this.isVisible) {
-        this.el.object3D.position.x +=
+        this.el.object3D.position.x -=
           event.detail.positionChange.x * this.data.movementFactor;
       }
-      console.log(
-          "X:", this.el.object3D.position.x,
-          "Y:", this.el.object3D.position.y,
-          "Z:", this.el.object3D.position.z
-      );
   },
     
   handleScale: function (event) {
     this.isVisible = true;
     if (this.isVisible) {
-      this.scaleFactor *=
-        1 + event.detail.spreadChange / event.detail.startSpread;
-
-      this.scaleFactor = Math.min(
-        Math.max(this.scaleFactor, this.data.minScale),
-        this.data.maxScale
-      );
-
-      this.el.object3D.scale.x = this.scaleFactor;
-      this.el.object3D.scale.y = this.scaleFactor;
-      this.el.object3D.scale.z = this.scaleFactor;
+      // Update the z-coordinate of the object's position based on spreadChange
+      this.el.object3D.position.z += event.detail.spreadChange * this.scaleFactor;
     }
-  },
+  }
 });
 
 // Component that detects and emits events for touch gestures
