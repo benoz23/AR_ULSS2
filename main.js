@@ -1,10 +1,3 @@
-// Get the container and camera elements
-const container = document.querySelector('#container');
-const camera = document.querySelector('#camera');
-
-// Get all container children
-const containerChildren = container.querySelectorAll('.container-child');
-// This script will be executed immediately after the plain HTML has loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Get the container and camera elements
     const container = document.querySelector('#container');
