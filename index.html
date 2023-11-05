@@ -40,7 +40,7 @@
                 <img id="1_percorsi" src="img/1_percorsi_2x1.png">
                 <img id="2_triage" src="img/2_triage_7x10.png">
             </a-assets>
-            <a-entity id="container" gesture-handler>
+            <a-entity id="container">
                 <a-entity class="container-child" position="-0.1875 1.525 0" rotation="-45 0 0" active-child></a-entity>
                 <a-entity class="container-child" position="-0.0625 1.525 0" rotation="-45 0 0"></a-entity>
                 <a-entity class="container-child" position="0.0625 1.525 0" rotation="-45 0 0"></a-entity>
@@ -61,7 +61,8 @@
             <a-camera
                 id="camera"
                 position="-0.1875 1.6 0.15"
-                look-controls="touchEnabled: false"></a-camera>
+                look-controls="touchEnabled: false"
+                gesture-handler></a-camera>
         </a-scene>
         <script src="main.js"></script>
     </body>
