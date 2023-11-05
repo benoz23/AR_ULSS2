@@ -45,8 +45,6 @@ AFRAME.registerComponent("gesture-handler", {
       if (this.isVisible) {
         this.el.object3D.position.x +=
           event.detail.positionChange.x * this.data.movementFactor;
-        this.el.object3D.position.z +=  // Change this line to update the z-axis
-          event.detail.positionChange.y * this.data.movementFactor;  // Change this line to update the z-axis
       }
       console.log(
           "X:", this.el.object3D.position.x,
