@@ -12,7 +12,7 @@
         <script src="https://kit.fontawesome.com/1bbfd0af93.js" crossorigin="anonymous"></script>
         <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
         <!--<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>-->
-        <!--<script src="gestures.js"></script>-->
+        <script src="gestures.js"></script>
     </head>
     <body style="margin: 0px; overflow: hidden;">
         <a class="top-bar" href="https://www.aulss2.veneto.it">
@@ -34,7 +34,8 @@
         <button id="next-button" onclick="next"><i class="fa-solid fa-caret-right"></i></button>
         <a-scene
             id="scene"
-            loading-screen="false">
+            loading-screen="false"
+            gesture-detector>
             <a-assets>
                 <img id="1_percorsi" src="img/1_percorsi_2x1.png">
                 <img id="2_triage" src="img/2_triage_7x10.png">
