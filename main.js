@@ -5,37 +5,42 @@ const camera = document.querySelector('#camera');
 // Get all container children
 const containerChildren = container.querySelectorAll('.container-child');
 
+// Disable prev and next buttons before the check is done
+document.getElementById('prev-button').disabled = true;
+document.getElementById('next-button').disabled = true;
+
 // Check for children with width > height
 for (const child of containerChildren) {
     const childWidth = child.offsetWidth;
     const childHeight = child.offsetHeight;
 
     if (childWidth > childHeight) {
-        // Create two auxiliary entities
+        // Create two auxiliary empty a-entity elements
         const aux1 = document.createElement('a-entity');
-        const aux2 = document.createElement('a-entity');
-
-        // Set their class to "container-child"
         aux1.classList.add('container-child');
+
+        const aux2 = document.createElement('a-entity');
         aux2.classList.add('container-child');
 
-        // Determine the auxiliary entities' positions
-        const aux1X = child.getAttribute('position').x - (childWidth / 6);
-        const aux2X = child.getAttribute('position').x + (childWidth / 6);
-        const auxY = child.getAttribute('position').y;
-        const auxZ = parseFloat(child.getAttribute('position').z) + 0.175;
+        // Set the positions of the auxiliary entities
+        const childPosition = child.getAttribute('position');
+        const childX = parseFloat(childPosition.x);
+        const childY = parseFloat(childPosition.y);
+        const childZ = parseFloat(childPosition.z);
 
-        // Set the auxiliary entities' positions
-        aux1.setAttribute('position', `${aux1X} ${auxY} ${auxZ}`);
-        aux2.setAttribute('position', `${aux2X} ${auxY} ${auxZ}`);
+        aux1.setAttribute('position', `${childX - childWidth / 6} ${childY} ${childZ + 0.175}`);
+        aux2.setAttribute('position', `${childX + childWidth / 6} ${childY} ${childZ + 0.175}`);
 
-        // Insert the auxiliary entities after the original child
+        // Insert the auxiliary entities into the container
         container.insertBefore(aux1, child.nextSibling);
         container.insertBefore(aux2, child.nextSibling);
     }
 }
 
-// Previous button click event handler
+// Enable prev and next buttons now that the check is done
+document.getElementById('prev-button').disabled = false;
+document.getElementById('next-button').disabled = false;
+
 document.getElementById('prev-button').onclick = function() {
     // Find the active child
     const activeChild = container.querySelector('[active-child]');
@@ -65,7 +70,6 @@ document.getElementById('prev-button').onclick = function() {
     }
 };
 
-// Next button click event handler
 document.getElementById('next-button').onclick = function() {
     // Find the active child
     const activeChild = container.querySelector('[active-child]');
