@@ -41,7 +41,8 @@ a, a:link, a:visited, a:hover, a:active {
     font-size: 1.25rem;
 }
 
-button{
+#prev-button,
+#next-button {
     position: fixed;
     z-index: 999;
     border: none;
