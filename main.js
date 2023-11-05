@@ -1,64 +1,71 @@
-// Prevent prev and next button to work before checking ends
-const prevButton = document.getElementById('prev-button');
-const nextButton = document.getElementById('next-button');
-prevButton.disabled = true;
-nextButton.disabled = true;
+// Wait for DOMContentLoaded event to run the check
+document.addEventListener('DOMContentLoaded', () => {
+  // Prevent prev and next button to work before checking ends
+  
+  // Get the container and camera elements
+  const container = document.querySelector('#container');
+  const camera = document.querySelector('#camera');
+  const prevButton = document.getElementById('prev-button');
+  const nextButton = document.getElementById('next-button');
+  prevButton.disabled = true;
+  nextButton.disabled = true;
 
-// Check if any container child has width > height
-const containerChildren = container.querySelectorAll('.container-child');
-let widthGreaterThanHeightFound = false;
+  // Check if any container child has width > height
+  const containerChildren = container.querySelectorAll('.container-child');
+  let widthGreaterThanHeightFound = false;
 
-for (const containerChild of containerChildren) {
-  const width = containerChild.offsetWidth;
-  const height = containerChild.offsetHeight;
-
-  if (width > height) {
-    widthGreaterThanHeightFound = true;
-    break;
-  }
-}
-
-if (widthGreaterThanHeightFound) {
-  // Add auxiliary elements for children with width > height
   for (const containerChild of containerChildren) {
     const width = containerChild.offsetWidth;
     const height = containerChild.offsetHeight;
 
     if (width > height) {
-      // Create two auxiliary empty a-entity elements
-      const auxEntity1 = document.createElement('a-entity');
-      const auxEntity2 = document.createElement('a-entity');
-
-      // Add class "container-child" to both auxiliary elements
-      auxEntity1.classList.add('container-child');
-      auxEntity2.classList.add('container-child');
-
-      // Set position attributes for auxiliary elements
-      const auxEntity1Position = {
-        x: containerChild.getAttribute('position').x - width / 6,
-        y: containerChild.getAttribute('position').y,
-        z: parseFloat(containerChild.getAttribute('position').z) + 0.175
-      };
-
-      const auxEntity2Position = {
-        x: parseFloat(containerChild.getAttribute('position').x) + width / 6,
-        y: containerChild.getAttribute('position').y,
-        z: parseFloat(containerChild.getAttribute('position').z) + 0.175
-      };
-
-      auxEntity1.setAttribute('position', auxEntity1Position);
-      auxEntity2.setAttribute('position', auxEntity2Position);
-
-      // Insert auxiliary elements after the original element
-      container.insertBefore(auxEntity2, containerChild.nextSibling);
-      container.insertBefore(auxEntity1, containerChild.nextSibling);
+      widthGreaterThanHeightFound = true;
+      break;
     }
   }
-}
 
-// Get the container and camera elements
-const container = document.querySelector('#container');
-const camera = document.querySelector('#camera');
+  if (widthGreaterThanHeightFound) {
+    // Add auxiliary elements for children with width > height
+    for (const containerChild of containerChildren) {
+      const width = containerChild.offsetWidth;
+      const height = containerChild.offsetHeight;
+
+      if (width > height) {
+        // Create two auxiliary empty a-entity elements
+        const auxEntity1 = document.createElement('a-entity');
+        const auxEntity2 = document.createElement('a-entity');
+
+        // Add class "container-child" to both auxiliary elements
+        auxEntity1.classList.add('container-child');
+        auxEntity2.classList.add('container-child');
+
+        // Set position attributes for auxiliary elements
+        const auxEntity1Position = {
+          x: containerChild.getAttribute('position').x - width / 6,
+          y: containerChild.getAttribute('position').y,
+          z: parseFloat(containerChild.getAttribute('position').z) + 0.175
+        };
+
+        const auxEntity2Position = {
+          x: parseFloat(containerChild.getAttribute('position').x) + width / 6,
+          y: containerChild.getAttribute('position').y,
+          z: parseFloat(containerChild.getAttribute('position').z) + 0.175
+        };
+
+        auxEntity1.setAttribute('position', auxEntity1Position);
+        auxEntity2.setAttribute('position', auxEntity2Position);
+
+        // Insert auxiliary elements after the original element
+        container.insertBefore(auxEntity2, containerChild.nextSibling);
+        container.insertBefore(auxEntity1, containerChild.nextSibling);
+      }
+    }
+  }
+
+  // Enable prev and next button after checking ends
+  prevButton.disabled = false;
+  nextButton.disabled = false;
+});
 
 document.getElementById('prev-button').onclick = function() {
   // Find the active child
