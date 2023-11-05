@@ -12,21 +12,9 @@ function isWidthGreaterThanHeight(element) {
     return width > height;
 }
 
-// Function to calculate coordinates for auxiliary elements
-function calculateAuxCoordinates(auxiledElement, isSecondAux) {
-    const auxX = parseFloat(auxiledElement.getAttribute('position').x);
-    const auxY = parseFloat(auxiledElement.getAttribute('position').y);
-    const auxZ = parseFloat(auxiledElement.getAttribute('position').z);
-
-    // Calculate the x-coordinate for the auxiliary elements
-    const offset = parseFloat(auxiledElement.getAttribute('width')) / 6;
-    const auxXCoord = isSecondAux ? auxX + offset : auxX - offset;
-
-    return { x: auxXCoord, y: auxY, z: auxZ };
-}
-
-// Create an array to store the stopping points
+// Create an array to store the stopping points and auxiliary points
 const stoppingPoints = [];
+let auxiliaryPointIndex = 1;
 
 // Iterate through the container children and add stopping points for exceptions
 containerChildren.forEach((child, index) => {
@@ -36,13 +24,23 @@ containerChildren.forEach((child, index) => {
     if (isWidthGreaterThanHeight(child)) {
         // Create two auxiliary stopping points
         const aux1 = document.createElement('a-entity');
-        const aux1Coordinates = calculateAuxCoordinates(child, false);
-        aux1.setAttribute('position', aux1Coordinates);
+        const aux2 = document.createElement('a-entity');
+
+        const childPosition = child.getAttribute('position');
+        const childWidth = parseFloat(child.getAttribute('width'));
+
+        aux1.setAttribute('position', {
+            x: childPosition.x - (childWidth / 6),
+            y: childPosition.y,
+            z: childPosition.z
+        });
         stoppingPoints.push(aux1);
 
-        const aux2 = document.createElement('a-entity');
-        const aux2Coordinates = calculateAuxCoordinates(child, true);
-        aux2.setAttribute('position', aux2Coordinates);
+        aux2.setAttribute('position', {
+            x: childPosition.x + (childWidth / 6),
+            y: childPosition.y,
+            z: childPosition.z
+        });
         stoppingPoints.push(aux2);
     }
 });
