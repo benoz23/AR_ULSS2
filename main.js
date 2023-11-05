@@ -32,14 +32,14 @@ containerChildren.forEach((child, index) => {
         aux1.setAttribute('position', {
             x: childPosition.x - (childWidth / 6),
             y: childPosition.y,
-            z: childPosition.z
+            z: childPosition.z + 0.075
         });
         stoppingPoints.push(aux1);
 
         aux2.setAttribute('position', {
             x: childPosition.x + (childWidth / 6),
             y: childPosition.y,
-            z: childPosition.z
+            z: childPosition.z + 0.075
         });
         stoppingPoints.push(aux2);
     }
