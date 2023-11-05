@@ -19,7 +19,7 @@ document.getElementById('prev-button').onclick = function() {
         // Move the camera to the previous child's position
         camera.setAttribute('animation__prev', {
             property: 'position',
-            to: `${prevPosition.x} ${prevPosition.y} ${parseFloat(prevPosition.z) - 0.175}`,
+            to: `${prevPosition.x} ${parseFloat(prevPosition.y) + 0.075} ${parseFloat(prevPosition.z) - 0.175}`,
             startEvents: 'prevButtonClick'
         });
 
@@ -48,7 +48,7 @@ document.getElementById('next-button').onclick = function() {
         // Move the camera to the next child's position
         camera.setAttribute('animation__next', {
             property: 'position',
-            to: `${nextPosition.x} ${nextPosition.y} ${parseFloat(nextPosition.z) - 0.175}`,
+            to: `${nextPosition.x} ${parseFloat(nextPosition.y) + 0.075} ${parseFloat(nextPosition.z) - 0.175}`,
             startEvents: 'nextButtonClick'
         });
 
