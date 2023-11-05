@@ -41,6 +41,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleMovement: function (event) {
+      this.isVisible = true;
       if (this.isVisible) {
         this.el.object3D.position.x +=
           event.detail.positionChange.x * this.data.movementFactor;
@@ -55,6 +56,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
     
   handleScale: function (event) {
+    this.isVisible = true;
     if (this.isVisible) {
       this.scaleFactor *=
         1 + event.detail.spreadChange / event.detail.startSpread;
