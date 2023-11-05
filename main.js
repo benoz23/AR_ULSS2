@@ -16,21 +16,47 @@ document.getElementById('prev-button').onclick = function() {
         const prevChild = containerChildren[prevIndex];
         const prevPosition = prevChild.getAttribute('position');
 
-        // Move the camera to the previous child's position
-        camera.setAttribute('animation__prev', {
-            property: 'position',
-            to: `${prevPosition.x} ${parseFloat(prevPosition.y) + 0.075} ${parseFloat(prevPosition.z) + 0.175}`,
-            startEvents: 'prevButtonClick'
-        });
+        // Handle cases where width > height by considering it as 3 positions
+        const prevChildWidth = parseFloat(prevChild.getAttribute('width'));
+        const prevChildHeight = parseFloat(prevChild.getAttribute('height'));
 
-        // Remove the "active-child" attribute from the current active child
-        activeChild.removeAttribute('active-child');
+        if (prevChildWidth > prevChildHeight) {
+            // Camera stops at three positions for the child
+            const positions = [
+                `${prevPosition.x} ${parseFloat(prevPosition.y) + 0.075} ${parseFloat(prevPosition.z) + 0.175}`,
+                `${prevPosition.x} ${parseFloat(prevPosition.y) + 0.075} ${parseFloat(prevPosition.z)}`,
+                `${prevPosition.x} ${parseFloat(prevPosition.y) + 0.075} ${parseFloat(prevPosition.z) - 0.175}`
+            ];
 
-        // Set the "active-child" attribute on the previous child
-        prevChild.setAttribute('active-child', '');
-        
-        // Trigger the animation
-        camera.emit('prevButtonClick');
+            for (const position of positions) {
+                camera.setAttribute('animation__prev', {
+                    property: 'position',
+                    to: position,
+                    startEvents: 'prevButtonClick'
+                });
+
+                camera.emit('prevButtonClick');
+
+                // Delay to allow camera animation to complete
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        } else {
+            // Move the camera to the previous child's position
+            camera.setAttribute('animation__prev', {
+                property: 'position',
+                to: `${prevPosition.x} ${parseFloat(prevPosition.y) + 0.075} ${parseFloat(prevPosition.z) + 0.175}`,
+                startEvents: 'prevButtonClick'
+            });
+
+            // Remove the "active-child" attribute from the current active child
+            activeChild.removeAttribute('active-child');
+
+            // Set the "active-child" attribute on the previous child
+            prevChild.setAttribute('active-child', '');
+
+            // Trigger the animation
+            camera.emit('prevButtonClick');
+        }
     }
 };
 
@@ -45,20 +71,46 @@ document.getElementById('next-button').onclick = function() {
         const nextChild = containerChildren[nextIndex];
         const nextPosition = nextChild.getAttribute('position');
 
-        // Move the camera to the next child's position
-        camera.setAttribute('animation__next', {
-            property: 'position',
-            to: `${nextPosition.x} ${parseFloat(nextPosition.y) + 0.075} ${parseFloat(nextPosition.z) + 0.175}`,
-            startEvents: 'nextButtonClick'
-        });
+        // Handle cases where width > height by considering it as 3 positions
+        const nextChildWidth = parseFloat(nextChild.getAttribute('width'));
+        const nextChildHeight = parseFloat(nextChild.getAttribute('height'));
 
-        // Remove the "active-child" attribute from the current active child
-        activeChild.removeAttribute('active-child');
+        if (nextChildWidth > nextChildHeight) {
+            // Camera stops at three positions for the child
+            const positions = [
+                `${nextPosition.x} ${parseFloat(nextPosition.y) + 0.075} ${parseFloat(nextPosition.z) - 0.175}`,
+                `${nextPosition.x} ${parseFloat(nextPosition.y) + 0.075} ${parseFloat(nextPosition.z)}`,
+                `${nextPosition.x} ${parseFloat(nextPosition.y) + 0.075} ${parseFloat(nextPosition.z) + 0.175}`
+            ];
 
-        // Set the "active-child" attribute on the next child
-        nextChild.setAttribute('active-child', '');
-        
-        // Trigger the animation
-        camera.emit('nextButtonClick');
+            for (const position of positions) {
+                camera.setAttribute('animation__next', {
+                    property: 'position',
+                    to: position,
+                    startEvents: 'nextButtonClick'
+                });
+
+                camera.emit('nextButtonClick');
+
+                // Delay to allow camera animation to complete
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        } else {
+            // Move the camera to the next child's position
+            camera.setAttribute('animation__next', {
+                property: 'position',
+                to: `${nextPosition.x} ${parseFloat(nextPosition.y) + 0.075} ${parseFloat(nextPosition.z) - 0.175}`,
+                startEvents: 'nextButtonClick'
+            });
+
+            // Remove the "active-child" attribute from the current active child
+            activeChild.removeAttribute('active-child');
+
+            // Set the "active-child" attribute on the next child
+            nextChild.setAttribute('active-child', '');
+
+            // Trigger the animation
+            camera.emit('nextButtonClick');
+        }
     }
 };
