@@ -12,6 +12,19 @@ function isWidthGreaterThanHeight(element) {
     return width > height;
 }
 
+// Function to calculate coordinates for auxiliary elements
+function calculateAuxCoordinates(auxiledElement, isSecondAux) {
+    const auxX = parseFloat(auxiledElement.getAttribute('position').x);
+    const auxY = parseFloat(auxiledElement.getAttribute('position').y);
+    const auxZ = parseFloat(auxiledElement.getAttribute('position').z);
+
+    // Calculate the x-coordinate for the auxiliary elements
+    const offset = parseFloat(auxiledElement.getAttribute('width')) / 6;
+    const auxXCoord = isSecondAux ? auxX + offset : auxX - offset;
+
+    return { x: auxXCoord, y: auxY, z: auxZ };
+}
+
 // Create an array to store the stopping points
 const stoppingPoints = [];
 
@@ -23,11 +36,13 @@ containerChildren.forEach((child, index) => {
     if (isWidthGreaterThanHeight(child)) {
         // Create two auxiliary stopping points
         const aux1 = document.createElement('a-entity');
-        aux1.setAttribute('position', { x: 0, y: 0, z: 0 }); // Adjust the position as needed
+        const aux1Coordinates = calculateAuxCoordinates(child, false);
+        aux1.setAttribute('position', aux1Coordinates);
         stoppingPoints.push(aux1);
 
         const aux2 = document.createElement('a-entity');
-        aux2.setAttribute('position', { x: 0, y: 0, z: 0 }); // Adjust the position as needed
+        const aux2Coordinates = calculateAuxCoordinates(child, true);
+        aux2.setAttribute('position', aux2Coordinates);
         stoppingPoints.push(aux2);
     }
 });
