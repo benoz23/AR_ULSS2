@@ -48,7 +48,7 @@ a, a:link, a:visited, a:hover, a:active {
     border: none;
     width: 12vw;
     height: 12vh;
-    bottom: 50vh;
+    top: 60vh;
     background-color: rgba(15, 87, 135, 0.75);
     font-size: 2rem;
     color: rgba(255, 255, 255, 0.75);
