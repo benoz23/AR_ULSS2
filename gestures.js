@@ -4,17 +4,15 @@ AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
     movementFactor: { default: 1 },
-    minScale: { default: 0.3 },
-    maxScale: { default: 8 },
+    scaleFactor: { default: 1 }
   },
 
   init: function () {
-    this.handleScale = this.handleScale.bind(this);
+    this.handleZoom = this.handleZoom.bind(this);
     this.handleMovement = this.handleMovement.bind(this);
 
     this.isVisible = false;
     this.initialPosition = this.el.object3D.position.clone();
-    this.scaleFactor = 1;
 
     this.el.sceneEl.addEventListener("markerFound", (e) => {
       this.isVisible = true;
@@ -28,33 +26,26 @@ AFRAME.registerComponent("gesture-handler", {
   update: function () {
     if (this.data.enabled) {
       this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
-      this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
+      this.el.sceneEl.addEventListener("twofingermove", this.handleZoom);
     } else {
       this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
-      this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+      this.el.sceneEl.removeEventListener("twofingermove", this.handleZoom);
     }
   },
 
   remove: function () {
     this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
-    this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+    this.el.sceneEl.removeEventListener("twofingermove", this.handleZoom);
   },
 
   handleMovement: function (event) {
-      this.isVisible = true;
-      if (this.isVisible) {
-        this.el.object3D.position.x -=
-          event.detail.positionChange.x * this.data.movementFactor;
-      }
+    this.el.object3D.position.x -=
+      event.detail.positionChange.x * this.data.movementFactor;
   },
     
-  handleScale: function (event) {
-    this.isVisible = true;
-    if (this.isVisible) {
-      // Update the y and z coordinates of the object's position based on spreadChange
-      this.el.object3D.position.y -= event.detail.spreadChange * this.scaleFactor;
-      this.el.object3D.position.z -= event.detail.spreadChange * this.scaleFactor;
-    }
+  handleZoom: function (event) {
+    this.el.object3D.position.y -= event.detail.spreadChange * this.data.scaleFactor;
+    this.el.object3D.position.z -= event.detail.spreadChange * this.data.scaleFactor;
   }
 });
 
