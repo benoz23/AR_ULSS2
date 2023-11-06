@@ -3,8 +3,8 @@
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
-    movementFactor: { default: 0.75 },
-    scaleFactor: { default: 0.75 }
+    movementFactor: { default: 0.25 },
+    zoomFactor: { default: 0.25 }
   },
 
   init: function () {
@@ -53,8 +53,8 @@ AFRAME.registerComponent("gesture-handler", {
   },
     
   handleZoom: function (event) {
-    this.el.object3D.position.y -= event.detail.spreadChange * this.data.scaleFactor;
-    this.el.object3D.position.z -= event.detail.spreadChange * this.data.scaleFactor;
+    this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
+    this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
     console.log(
       "X:", this.el.object3D.position.x,
       "Y:", this.el.object3D.position.y,
