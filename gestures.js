@@ -51,7 +51,8 @@ AFRAME.registerComponent("gesture-handler", {
   handleScale: function (event) {
     this.isVisible = true;
     if (this.isVisible) {
-      // Update the z-coordinate of the object's position based on spreadChange
+      // Update the y and z coordinates of the object's position based on spreadChange
+      this.el.object3D.position.y -= event.detail.spreadChange * this.scaleFactor;
       this.el.object3D.position.z -= event.detail.spreadChange * this.scaleFactor;
     }
   }
