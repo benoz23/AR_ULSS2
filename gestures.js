@@ -45,11 +45,21 @@ AFRAME.registerComponent("gesture-handler", {
       event.detail.positionChange.y * this.data.movementFactor;
     this.el.object3D.position.z -=
       event.detail.positionChange.y * this.data.movementFactor;
+    console.log(
+      "X:", this.el.object3D.position.x,
+      "Y:", this.el.object3D.position.y,
+      "Z:", this.el.object3D.position.z
+    );
   },
     
   handleZoom: function (event) {
     this.el.object3D.position.y -= event.detail.spreadChange * this.data.scaleFactor;
     this.el.object3D.position.z -= event.detail.spreadChange * this.data.scaleFactor;
+    console.log(
+      "X:", this.el.object3D.position.x,
+      "Y:", this.el.object3D.position.y,
+      "Z:", this.el.object3D.position.z
+  );
   }
 });
 
