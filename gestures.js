@@ -50,13 +50,11 @@ AFRAME.registerComponent("gesture-handler", {
   handleMovementVert: function (event) {
     this.el.object3D.position.y +=
       event.detail.positionChange.y * this.data.movementFactor;
-    this.el.object3D.position.z -=
-      event.detail.positionChange.y * this.data.movementFactor;
   },
     
   handleZoom: function (event) {
-    this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
-    this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
+    this.el.object3D.position.z -=
+      event.detail.spreadChange * this.data.zoomFactor;
   }
 });
 
