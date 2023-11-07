@@ -1,14 +1,10 @@
+/* global AFRAME, THREE */
+
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
-    movementFactor: { default: 0.5 },
-    zoomFactor: { default: 0.25 },
-    minX: { default: -0.25 },   // Minimum X position
-    maxX: { default: 1.1875 },    // Maximum X position
-    minY: { default: 1.225 },     // Minimum Y and Z position
-    maxY: { default: 1.475 },    // Maximum Y and Z position
-    minZ: { default: 0.05 },   // Minimum Z position
-    maxZ: { default: 0.2 }     // Maximum Z position
+    movementFactor: { default: 1 },
+    zoomFactor: { default: 1 }
   },
 
   init: function () {
@@ -47,29 +43,20 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleMovementHor: function (event) {
-    const newX = this.el.object3D.position.x - event.detail.positionChange.x * this.data.movementFactor;
-    console.log("minX= ", this.data.minX, "newX:", newX, "minX= ", this.data.maxX)
-    if (newX >= this.data.minX && newX <= this.data.maxX) {
-      this.el.object3D.position.x = newX;
-    }
+    this.el.object3D.position.x -=
+      event.detail.positionChange.x * this.data.movementFactor;
   },
 
   handleMovementVert: function (event) {
-    const newY = this.el.object3D.position.y + event.detail.positionChange.y * this.data.movementFactor;
-    console.log("minY= ", this.data.minY, "newY:", newY, "minY= ", this.data.maxY)
-    if (newY >= this.data.minY && newY <= this.data.maxY) {
-      this.el.object3D.position.y = newY;
-      this.el.object3D.position.z -= event.detail.positionChange.y * this.data.movementFactor;
-    }
+    this.el.object3D.position.y +=
+      event.detail.positionChange.y * this.data.movementFactor;
+    this.el.object3D.position.z -=
+      event.detail.positionChange.y * this.data.movementFactor;
   },
-
+    
   handleZoom: function (event) {
-    const newZ = this.el.object3D.position.z - event.detail.spreadChange * this.data.zoomFactor;
-    console.log("minZ= ", this.data.minZ, "newZ:", newZ, "minZ= ", this.data.maxZ)
-    if (newZ >= this.data.minZ && newZ <= this.data.maxZ) {
-      this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
-      this.el.object3D.position.z = newZ;
-    }
+    this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
+    this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
   }
 });
 
