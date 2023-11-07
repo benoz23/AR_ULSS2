@@ -5,8 +5,8 @@ AFRAME.registerComponent("gesture-handler", {
     enabled: { default: true },
     movementFactor: { default: 1 },
     zoomFactor: { default: 1 },
-    min: { type: 'vec3', default: {x: -0.25, y: -0.15, z: 0.1} }, // Minimum position
-    max: { type: 'vec3', default: {x: 1.1875, y: 0.15, z: 0.2} }  // Maximum position
+    min: { type: 'vec3', default: {x: -0.25, y: 1.15, z: 0.1} }, // Minimum position
+    max: { type: 'vec3', default: {x: 1.1875, y: 1.25, z: 0.2} }  // Maximum position
   },
 
   init: function () {
