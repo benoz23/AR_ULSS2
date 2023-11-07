@@ -1,5 +1,29 @@
 /* global AFRAME, THREE */
 
+AFRAME.registerComponent('position-monitor', {
+  init: function () {
+    // Reference to the entity whose position you want to monitor.
+    const entityToMonitor = this.el;
+
+    // Log the initial position.
+    console.log('Initial Position (x, y, z):', entityToMonitor.object3D.position.x, entityToMonitor.object3D.position.y, entityToMonitor.object3D.position.z);
+    
+    // You can also update the positions or perform other actions here based on the initial position.
+
+    // Listen for changes in position.
+    entityToMonitor.addEventListener('componentchanged', (event) => {
+      if (event.detail.name === 'position') {
+        const newPosition = entityToMonitor.object3D.position;
+
+        // Log or update the new position.
+        console.log('New Position (x, y, z):', newPosition.x, newPosition.y, newPosition.z);
+        
+        // You can perform additional actions or logic here based on the new position.
+      }
+    });
+  }
+});
+
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
