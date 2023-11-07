@@ -56,8 +56,8 @@ AFRAME.registerComponent("gesture-handler", {
   handleMovementVert: function (event) {
     const newY = this.el.object3D.position.y + event.detail.positionChange.y * this.data.movementFactor;
     if (newY >= this.data.minY && newY <= this.data.maxY) {
-      this.el.object3D.position.y += event.detail.positionChange.y * this.data.movementFactor;
-      this.el.object3D.position.z = newZ;
+      this.el.object3D.position.y = newY;
+      this.el.object3D.position.z -= event.detail.positionChange.y * this.data.movementFactor;
     }
   },
 
