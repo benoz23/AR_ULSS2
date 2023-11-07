@@ -1,10 +1,11 @@
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
-    movementFactor: { default: 0.5 },
+    movementFactorH: { default: 0.5 },
+    movementFactorV: { default: 0.25 },
     zoomFactor: { default: 4 },
     minZoom: { default: 0.5 }, // Minimum zoom level
-    maxZoom: { default: 5 },   // Maximum zoom level
+    maxZoom: { default: 2.5 },   // Maximum zoom level
     handleZoom: { default: true },
     handleMovementHor: { default: true },
     handleMovementVert: { default: true },
@@ -57,14 +58,14 @@ AFRAME.registerComponent("gesture-handler", {
 
   handleMovementHor: function (event) {
     this.el.object3D.position.x -=
-      event.detail.positionChange.x * this.data.movementFactor;
+      event.detail.positionChange.x * this.data.movementFactorH;
   },
 
   handleMovementVert: function (event) {
     this.el.object3D.position.y +=
-      event.detail.positionChange.y * this.data.movementFactor;
+      event.detail.positionChange.y * this.data.movementFactorV;
     this.el.object3D.position.z -=
-      event.detail.positionChange.y * this.data.movementFactor;
+      event.detail.positionChange.y * this.data.movementFactorV;
   },
     
   handleZoom: function (event) {
