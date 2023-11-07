@@ -16,7 +16,6 @@ AFRAME.registerComponent("gesture-handler", {
 
     this.isVisible = false;
     this.initialPosition = this.el.object3D.position.clone();
-    this.containerPosition = new THREE.Vector3(); // Initialize to (0, 0, 0).
 
     this.el.sceneEl.addEventListener("markerFound", (e) => {
       this.isVisible = true;
@@ -46,33 +45,44 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleMovementHor: function (event) {
-    this.el.object3D.position.x -=
-      event.detail.positionChange.x * this.data.movementFactor;
+    const newPosition = this.el.object3D.position.clone();
+    newPosition.x -= event.detail.positionChange.x * this.data.movementFactor;
 
-    // Restrict the camera's X position
-    this.el.object3D.position.x = Math.min(this.data.max.x, Math.max(this.data.min.x, this.el.object3D.position.x));
+    // Check and enforce movement boundaries relative to the container.
+    newPosition.x = Math.max(this.data.min.x, Math.min(this.data.max.x, newPosition.x));
+    newPosition.y = Math.max(this.data.min.y, Math.min(this.data.max.y, newPosition.y));
+    newPosition.z = Math.max(this.data.min.z, Math.min(this.data.max.z, newPosition.z));
+
+    this.el.object3D.position.copy(newPosition);
   },
 
   handleMovementVert: function (event) {
-    this.el.object3D.position.y +=
-      event.detail.positionChange.y * this.data.movementFactor;
-    this.el.object3D.position.z -=
-      event.detail.positionChange.y * this.data.movementFactor;
+    const newPosition = this.el.object3D.position.clone();
+    newPosition.y += event.detail.positionChange.y * this.data.movementFactor;
+    newPosition.z -= event.detail.positionChange.y * this.data.movementFactor;
 
-    // Restrict the camera's Y and Z positions
-    this.el.object3D.position.y = Math.min(this.data.max.y, Math.max(this.data.min.y, this.el.object3D.position.y));
-    this.el.object3D.position.z = Math.min(this.data.max.z, Math.max(this.data.min.z, this.el.object3D.position.z));
+    // Check and enforce movement boundaries relative to the container.
+    newPosition.x = Math.max(this.data.min.x, Math.min(this.data.max.x, newPosition.x));
+    newPosition.y = Math.max(this.data.min.y, Math.min(this.data.max.y, newPosition.y));
+    newPosition.z = Math.max(this.data.min.z, Math.min(this.data.max.z, newPosition.z));
+
+    this.el.object3D.position.copy(newPosition);
   },
     
   handleZoom: function (event) {
-    this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
-    this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
+    const newPosition = this.el.object3D.position.clone();
+    newPosition.y -= event.detail.spreadChange * this.data.zoomFactor;
+    newPosition.z -= event.detail.spreadChange * this.data.zoomFactor;
 
-    // Restrict the camera's Y and Z positions
-    this.el.object3D.position.y = Math.min(this.data.max.y, Math.max(this.data.min.y, this.el.object3D.position.y));
-    this.el.object3D.position.z = Math.min(this.data.max.z, Math.max(this.data.min.z, this.el.object3D.position.z));
+    // Check and enforce movement boundaries relative to the container.
+    newPosition.x = Math.max(this.data.min.x, Math.min(this.data.max.x, newPosition.x));
+    newPosition.y = Math.max(this.data.min.y, Math.min(this.data.max.y, newPosition.y));
+    newPosition.z = Math.max(this.data.min.z, Math.min(this.data.max.z, newPosition.z));
+
+    this.el.object3D.position.copy(newPosition);
   }
 });
+
 
 // Component that detects and emits events for touch gestures
 
