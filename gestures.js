@@ -4,12 +4,13 @@ AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
     movementFactor: { default: 1 },
-    scaleFactor: { default: 1 }
+    zoomFactor: { default: 1 }
   },
 
   init: function () {
     this.handleZoom = this.handleZoom.bind(this);
-    this.handleMovement = this.handleMovement.bind(this);
+    this.handleMovementHor = this.handleMovementHor.bind(this);
+    this.handleMovementVert = this.handleMovementVert.bind(this);
 
     this.isVisible = false;
     this.initialPosition = this.el.object3D.position.clone();
@@ -25,41 +26,37 @@ AFRAME.registerComponent("gesture-handler", {
 
   update: function () {
     if (this.data.enabled) {
-      this.el.sceneEl.addEventListener("onefingermove", this.handleMovement);
+      this.el.sceneEl.addEventListener("onefingermove", this.handleMovementHor);
+      this.el.sceneEl.addEventListener("onefingermove", this.handleMovementVert);
       this.el.sceneEl.addEventListener("twofingermove", this.handleZoom);
     } else {
-      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
+      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementHor);
+      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementVert);
       this.el.sceneEl.removeEventListener("twofingermove", this.handleZoom);
     }
   },
 
   remove: function () {
-    this.el.sceneEl.removeEventListener("onefingermove", this.handleMovement);
+    this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementHor);
+    this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementVert);
     this.el.sceneEl.removeEventListener("twofingermove", this.handleZoom);
   },
 
-  handleMovement: function (event) {
+  handleMovementHor: function (event) {
     this.el.object3D.position.x -=
       event.detail.positionChange.x * this.data.movementFactor;
+  },
+
+  handleMovementVert: function (event) {
     this.el.object3D.position.y +=
       event.detail.positionChange.y * this.data.movementFactor;
     this.el.object3D.position.z -=
       event.detail.positionChange.y * this.data.movementFactor;
-    console.log(
-      "X:", this.el.object3D.position.x,
-      "Y:", this.el.object3D.position.y,
-      "Z:", this.el.object3D.position.z
-    );
   },
     
   handleZoom: function (event) {
-    this.el.object3D.position.y -= event.detail.spreadChange * this.data.scaleFactor;
-    this.el.object3D.position.z -= event.detail.spreadChange * this.data.scaleFactor;
-    console.log(
-      "X:", this.el.object3D.position.x,
-      "Y:", this.el.object3D.position.y,
-      "Z:", this.el.object3D.position.z
-  );
+    this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
+    this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
   }
 });
 
