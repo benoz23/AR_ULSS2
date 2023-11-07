@@ -1,10 +1,14 @@
-/* global AFRAME, THREE */
-
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
     movementFactor: { default: 0.5 },
-    zoomFactor: { default: 0.25 }
+    zoomFactor: { default: 0.25 },
+    minX: { default: -10 },   // Minimum X position
+    maxX: { default: 10 },    // Maximum X position
+    minY: { default: 0 },     // Minimum Y and Z position
+    maxY: { default: 10 },    // Maximum Y and Z position
+    minZ: { default: -10 },   // Minimum Z position
+    maxZ: { default: 10 }     // Maximum Z position
   },
 
   init: function () {
@@ -43,22 +47,33 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleMovementHor: function (event) {
-    this.el.object3D.position.x -=
-      event.detail.positionChange.x * this.data.movementFactor;
+    const newPositionX = this.el.object3D.position.x - event.detail.positionChange.x * this.data.movementFactor;
+    if (newPositionX >= this.data.minX && newPositionX <= this.data.maxX) {
+      this.el.object3D.position.x = newPositionX;
+    }
   },
 
   handleMovementVert: function (event) {
-    this.el.object3D.position.y +=
-      event.detail.positionChange.y * this.data.movementFactor;
-    this.el.object3D.position.z -=
-      event.detail.positionChange.y * this.data.movementFactor;
-  },
+    const newPositionY = this.el.object3D.position.y + event.detail.positionChange.y * this.data.movementFactor;
+    const newPositionZ = this.el.object3D.position.z - event.detail.positionChange.y * this.data.movementFactor;
+
+    if (newPositionY >= this.data.minY && newPositionY <= this.data.maxY) {
+      this.el.object3D.position.y = newPositionY;
+      this.el.object3D.position.z = newPositionZ;
+    }
+  },,
     
   handleZoom: function (event) {
-    this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
-    this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
+    const newPositionY = this.el.object3D.position.y - event.detail.spreadChange * this.data.zoomFactor;
+    const newPositionZ = this.el.object3D.position.z - event.detail.spreadChange * this.data.zoomFactor;
+
+    if (newPositionZ >= this.data.minZ && newPositionZ <= this.data.maxZ) {
+      this.el.object3D.position.y = newPositionY;
+      this.el.object3D.position.z = newPositionZ;
+    }
   }
 });
+
 
 // Component that detects and emits events for touch gestures
 
