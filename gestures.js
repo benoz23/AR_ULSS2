@@ -66,8 +66,10 @@ AFRAME.registerComponent("gesture-handler", {
   },
     
   handleZoom: function (event) {
-    this.el.object3DMap.camera.zoom -= event.detail.spreadChange * this.data.zoomFactor;
-    console.log(this.el.object3DMap.camera.zoom)
+    const camera = this.el.object3DMap.camera;
+    camera.zoom -= event.detail.spreadChange * this.data.zoomFactor;
+    camera.updateProjectionMatrix(); // Update the projection matrix
+    console.log(camera.zoom);
   }
   // handleZoom: function (event) {
   //   this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
