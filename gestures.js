@@ -1,8 +1,8 @@
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
-    movementFactor: { default: 1 },
-    zoomFactor: { default: 1 },
+    movementFactor: { default: 0.5 },
+    zoomFactor: { default: 2 },
     handleZoom: { default: true },
     handleMovementHor: { default: true },
     handleMovementVert: { default: true },
