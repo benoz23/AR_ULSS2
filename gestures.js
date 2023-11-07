@@ -7,8 +7,8 @@ AFRAME.registerComponent("gesture-handler", {
     maxX: { default: 1.1875 },    // Maximum X position
     minY: { default: 1.075 },     // Minimum Y and Z position
     maxY: { default: 1.475 },    // Maximum Y and Z position
-    minZ: { default: -0.2 },   // Minimum Z position
-    maxZ: { default: -0.05 }     // Maximum Z position
+    minZ: { default: 0.2 },   // Minimum Z position
+    maxZ: { default: 0.05 }     // Maximum Z position
   },
 
   init: function () {
