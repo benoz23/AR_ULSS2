@@ -47,21 +47,29 @@ AFRAME.registerComponent("gesture-handler", {
   },
 
   handleMovementHor: function (event) {
-    const newPositionX = this.el.object3D.position.x - event.detail.positionChange.x * this.data.movementFactor;
-    if (newPositionX >= this.data.minX && newPositionX <= this.data.maxX) {
-      this.el.object3D.position.x = newPositionX;
+    const newX = this.el.object3D.position.x - event.detail.positionChange.x * this.data.movementFactor;
+    if (newX >= this.data.minX && newX <= this.data.maxX) {
+      this.el.object3D.position.x = newX;
     }
   },
 
   handleMovementVert: function (event) {
-    const newPositionY = this.el.object3D.position.y + event.detail.positionChange.y * this.data.movementFactor;
-    const newPositionZ = this.el.object3D.position.z - event.detail.positionChange.y * this.data.movementFactor;
-
-    if (newPositionY >= this.data.minY && newPositionY <= this.data.maxY) {
-      this.el.object3D.position.y = newPositionY;
-      this.el.object3D.position.z = newPositionZ;
+    const newY = this.el.object3D.position.y + event.detail.positionChange.y * this.data.movementFactor;
+    if (newY >= this.data.minY && newY <= this.data.maxY) {
+      this.el.object3D.position.y += event.detail.positionChange.y * this.data.movementFactor;
+      this.el.object3D.position.z = newZ;
     }
   },
+
+  handleZoom: function (event) {
+    const newZ = this.el.object3D.position.z - event.detail.spreadChange * this.data.zoomFactor;
+    if (newZ >= this.data.minZ && newZ <= this.data.maxZ) {
+      this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
+      this.el.object3D.position.z = newZ;
+    }
+  }
+});
+
     
   handleZoom: function (event) {
     const newPositionY = this.el.object3D.position.y - event.detail.spreadChange * this.data.zoomFactor;
