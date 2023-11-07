@@ -20,7 +20,6 @@
         <a-scene
             id="scene"
             loading-screen="enabled: false"
-            rotation="-45 0 0"
             gesture-detector>
             <a-assets>
                 <img id="1_percorsi" src="img/1_percorsi.png">
@@ -38,16 +37,12 @@
                 <a-image id="img-5" src="#5_attesa" width="0.125" height="0.25" position="0.8875 0 0"></a-image>
                 <a-image id="img-6" src="#6_ticket" width="0.125" height="0.25" position="1.0625 0 0"></a-image>
             </a-entity>
-            <a-entity id="rig"
-                position="-0.15 0 0.15"
-                rotation="45 0 0"
+            <a-camera
+                id="camera"
+                position="-0.15 1.35 0.15"
+                look-controls="touchEnabled: false"
                 gesture-handler>
-                <a-camera
-                    id="camera"
-                    position="0 0.845 -0.845"
-                    look-controls="touchEnabled: false">
-                </a-camera>
-            </a-entity>
-    </a-scene>
+            </a-camera>
+        </a-scene>
     </body>
 </html>
