@@ -9,7 +9,7 @@ AFRAME.registerComponent('position-monitor', {
     console.log('Initial Position (x, y, z):', entityToMonitor.object3D.position.x, entityToMonitor.object3D.position.y, entityToMonitor.object3D.position.z);
 
     // Continuously monitor and log the position.
-    this.el.sceneEl.addEventListener('tick', () => {
+    this.el.sceneEl.addEventListener('renderstart', () => { // Use 'renderstart' event
       const newPosition = entityToMonitor.object3D.position;
 
       // Log the current position in real-time.
@@ -19,6 +19,7 @@ AFRAME.registerComponent('position-monitor', {
     });
   }
 });
+
 
 AFRAME.registerComponent("gesture-handler", {
   schema: {
