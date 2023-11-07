@@ -4,7 +4,9 @@ AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
     movementFactor: { default: 1 },
-    zoomFactor: { default: 1 }
+    zoomFactor: { default: 1 },
+    min: { type: 'vec3', default: {x: -1, y: 1, z: -1} }, // Minimum position
+    max: { type: 'vec3', default: {x: 1, y: 2, z: 1} }  // Maximum position
   },
 
   init: function () {
@@ -14,6 +16,7 @@ AFRAME.registerComponent("gesture-handler", {
 
     this.isVisible = false;
     this.initialPosition = this.el.object3D.position.clone();
+    this.containerPosition = new THREE.Vector3(); // Initialize to (0, 0, 0).
 
     this.el.sceneEl.addEventListener("markerFound", (e) => {
       this.isVisible = true;
@@ -45,6 +48,9 @@ AFRAME.registerComponent("gesture-handler", {
   handleMovementHor: function (event) {
     this.el.object3D.position.x -=
       event.detail.positionChange.x * this.data.movementFactor;
+
+    // Restrict the camera's X position
+    this.el.object3D.position.x = Math.min(this.data.max.x, Math.max(this.data.min.x, this.el.object3D.position.x));
   },
 
   handleMovementVert: function (event) {
@@ -52,11 +58,19 @@ AFRAME.registerComponent("gesture-handler", {
       event.detail.positionChange.y * this.data.movementFactor;
     this.el.object3D.position.z -=
       event.detail.positionChange.y * this.data.movementFactor;
+
+    // Restrict the camera's Y and Z positions
+    this.el.object3D.position.y = Math.min(this.data.max.y, Math.max(this.data.min.y, this.el.object3D.position.y));
+    this.el.object3D.position.z = Math.min(this.data.max.z, Math.max(this.data.min.z, this.el.object3D.position.z));
   },
     
   handleZoom: function (event) {
     this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
     this.el.object3D.position.z -= event.detail.spreadChange * this.data.zoomFactor;
+
+    // Restrict the camera's Y and Z positions
+    this.el.object3D.position.y = Math.min(this.data.max.y, Math.max(this.data.min.y, this.el.object3D.position.y));
+    this.el.object3D.position.z = Math.min(this.data.max.z, Math.max(this.data.min.z, this.el.object3D.position.z));
   }
 });
 
