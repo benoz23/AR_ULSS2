@@ -61,7 +61,7 @@ AFRAME.registerComponent("gesture-handler", {
     this.el.object3D.position.y +=
       event.detail.positionChange.y * this.data.movementFactor;
     this.el.object3D.position.z -=
-      event.detail.positionChange.y * this data.movementFactor;
+      event.detail.positionChange.y * this.data.movementFactor;
 
     // Restrict the camera's Y and Z positions
     this.el.object3D.position.y = Math.min(this.data.max.y, Math.max(this.data.min.y, this.el.object3D.position.y));
@@ -169,7 +169,7 @@ AFRAME.registerComponent("gesture-detector", {
 
       // Update state with new data
 
-      Object assign(previousState, currentState);
+      Object.assign(previousState, currentState);
 
       // Add state data to event detail
 
