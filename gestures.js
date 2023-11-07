@@ -1,25 +1,41 @@
 /* global AFRAME, THREE */
 
 AFRAME.registerComponent('position-monitor', {
+  schema: {
+    logInterval: { default: 1000 } // Log position every 1000ms (1 second)
+  },
+
   init: function () {
-    // Reference to the entity whose position you want to monitor.
-    const entityToMonitor = this.el;
+    // Initialize the position log timer.
+    this.positionLogTimer = 0;
 
-    // Log the initial position.
-    console.log('Initial Position (x, y, z):', entityToMonitor.object3D.position.x, entityToMonitor.object3D.position.y, entityToMonitor.object3D.position.z);
+    // Get a reference to the camera entity.
+    this.camera = this.el;
 
-    // Continuously monitor and log the position.
-    this.el.sceneEl.addEventListener('renderstart', () => { // Use 'renderstart' event
-      const newPosition = entityToMonitor.object3D.position;
+    // Store the initial camera position.
+    this.lastPosition = this.camera.object3D.position.clone();
+  },
 
-      // Log the current position in real-time.
-      console.log('Current Position (x, y, z):', newPosition.x, newPosition.y, newPosition.z);
+  tick: function (time, timeDelta) {
+    // Calculate the time elapsed since the last position log.
+    this.positionLogTimer += timeDelta;
 
-      // You can perform additional actions or logic here based on the current position.
-    });
+    // Check if it's time to log the position.
+    if (this.positionLogTimer >= this.data.logInterval) {
+      // Get the current camera position.
+      const currentPosition = this.camera.object3D.position.clone();
+
+      // Log the x, y, and z positions to the console.
+      console.log('Camera Position - X:', currentPosition.x, 'Y:', currentPosition.y, 'Z:', currentPosition.z);
+
+      // Reset the position log timer.
+      this.positionLogTimer = 0;
+
+      // Update the last position to the current position for the next log interval.
+      this.lastPosition.copy(currentPosition);
+    }
   }
 });
-
 
 AFRAME.registerComponent("gesture-handler", {
   schema: {
