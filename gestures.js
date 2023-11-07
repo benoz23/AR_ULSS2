@@ -48,18 +48,15 @@ AFRAME.registerComponent("gesture-handler", {
 
   handleMovementHor: function (event) {
     const newX = this.el.object3D.position.x - event.detail.positionChange.x * this.data.movementFactor;
+    console.log("minX= ", this.data.minX, "newX:", newX, "minX= ", this.data.maxX)
     if (newX >= this.data.minX && newX <= this.data.maxX) {
       this.el.object3D.position.x = newX;
-      console.log(
-        "X:", this.el.object3D.position.x,
-        "Y:", this.el.object3D.position.y,
-        "Z:", this.el.object3D.position.z
-      );  
     }
   },
 
   handleMovementVert: function (event) {
     const newY = this.el.object3D.position.y + event.detail.positionChange.y * this.data.movementFactor;
+    console.log("minY= ", this.data.minY, "newY:", newY, "minY= ", this.data.maxY)
     if (newY >= this.data.minY && newY <= this.data.maxY) {
       this.el.object3D.position.y = newY;
       this.el.object3D.position.z -= event.detail.positionChange.y * this.data.movementFactor;
@@ -68,6 +65,7 @@ AFRAME.registerComponent("gesture-handler", {
 
   handleZoom: function (event) {
     const newZ = this.el.object3D.position.z - event.detail.spreadChange * this.data.zoomFactor;
+    console.log("minZ= ", this.data.minZ, "newZ:", newZ, "minZ= ", this.data.maxZ)
     if (newZ >= this.data.minZ && newZ <= this.data.maxZ) {
       this.el.object3D.position.y -= event.detail.spreadChange * this.data.zoomFactor;
       this.el.object3D.position.z = newZ;
