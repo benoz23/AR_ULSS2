@@ -107,7 +107,7 @@ AFRAME.registerComponent("gesture-handler", {
   },
     
   handleZoom: function (event) {
-    this.el.object3D.zoom -= event.detail.spreadChange * this.data.zoomFactor;
+    this.el.mappings.zoom -= event.detail.spreadChange * this.data.zoomFactor;
   }
 });
 
