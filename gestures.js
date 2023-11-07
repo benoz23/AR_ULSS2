@@ -70,19 +70,6 @@ AFRAME.registerComponent("gesture-handler", {
   }
 });
 
-    
-  handleZoom: function (event) {
-    const newPositionY = this.el.object3D.position.y - event.detail.spreadChange * this.data.zoomFactor;
-    const newPositionZ = this.el.object3D.position.z - event.detail.spreadChange * this.data.zoomFactor;
-
-    if (newPositionZ >= this.data.minZ && newPositionZ <= this.data.maxZ) {
-      this.el.object3D.position.y = newPositionY;
-      this.el.object3D.position.z = newPositionZ;
-    }
-  }
-});
-
-
 // Component that detects and emits events for touch gestures
 
 AFRAME.registerComponent("gesture-detector", {
