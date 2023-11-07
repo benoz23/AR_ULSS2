@@ -1,10 +1,11 @@
-/* global AFRAME, THREE */
-
 AFRAME.registerComponent("gesture-handler", {
   schema: {
     enabled: { default: true },
     movementFactor: { default: 1 },
-    zoomFactor: { default: 1 }
+    zoomFactor: { default: 1 },
+    handleZoom: { default: true },
+    handleMovementHor: { default: true },
+    handleMovementVert: { default: true },
   },
 
   init: function () {
@@ -26,13 +27,23 @@ AFRAME.registerComponent("gesture-handler", {
 
   update: function () {
     if (this.data.enabled) {
-      this.el.sceneEl.addEventListener("onefingermove", this.handleMovementHor);
-      this.el.sceneEl.addEventListener("onefingermove", this.handleMovementVert);
-      this.el.sceneEl.addEventListener("twofingermove", this.handleZoom);
-    } else {
-      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementHor);
-      this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementVert);
-      this.el.sceneEl.removeEventListener("twofingermove", this.handleZoom);
+      if (this.data.handleMovementHor) {
+        this.el.sceneEl.addEventListener("onefingermove", this.handleMovementHor);
+      } else {
+        this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementHor);
+      }
+      
+      if (this.data.handleMovementVert) {
+        this.el.sceneEl.addEventListener("onefingermove", this.handleMovementVert);
+      } else {
+        this.el.sceneEl.removeEventListener("onefingermove", this.handleMovementVert);
+      }
+      
+      if (this.data.handleZoom) {
+        this.el.sceneEl.addEventListener("twofingermove", this.handleZoom);
+      } else {
+        this.el.sceneEl.removeEventListener("twofingermove", this.handleZoom);
+      }
     }
   },
 
