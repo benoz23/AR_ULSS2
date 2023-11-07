@@ -3,12 +3,12 @@ AFRAME.registerComponent("gesture-handler", {
     enabled: { default: true },
     movementFactor: { default: 0.5 },
     zoomFactor: { default: 0.25 },
-    minX: { default: -10 },   // Minimum X position
-    maxX: { default: 10 },    // Maximum X position
-    minY: { default: 0 },     // Minimum Y and Z position
-    maxY: { default: 10 },    // Maximum Y and Z position
-    minZ: { default: -10 },   // Minimum Z position
-    maxZ: { default: 10 }     // Maximum Z position
+    minX: { default: -0.25 },   // Minimum X position
+    maxX: { default: 1.1875 },    // Maximum X position
+    minY: { default: 1.075 },     // Minimum Y and Z position
+    maxY: { default: 1.325 },    // Maximum Y and Z position
+    minZ: { default: 0.2 },   // Minimum Z position
+    maxZ: { default: 0.5 }     // Maximum Z position
   },
 
   init: function () {
@@ -61,7 +61,7 @@ AFRAME.registerComponent("gesture-handler", {
       this.el.object3D.position.y = newPositionY;
       this.el.object3D.position.z = newPositionZ;
     }
-  },,
+  },
     
   handleZoom: function (event) {
     const newPositionY = this.el.object3D.position.y - event.detail.spreadChange * this.data.zoomFactor;
