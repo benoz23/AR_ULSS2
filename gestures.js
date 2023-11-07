@@ -42,8 +42,8 @@ AFRAME.registerComponent("gesture-handler", {
     enabled: { default: true },
     movementFactor: { default: 1 },
     zoomFactor: { default: 1 },
-    min: { type: 'vec3', default: {x: -0.25, y: 1.3, z: 0} }, // Minimum position
-    max: { type: 'vec3', default: {x: 1.125, y: 1.4, z: 0} }  // Maximum position
+    min: { type: 'vec3', default: {x: -0.25, y: 1.3, z: 0.1} }, // Minimum position
+    max: { type: 'vec3', default: {x: 1.125, y: 1.4, z: 0.2} }  // Maximum position
   },
 
   init: function () {
@@ -107,10 +107,19 @@ AFRAME.registerComponent("gesture-handler", {
   },
     
   handleZoom: function (event) {
-    this.el.object3DMap.camera.zoom -= event.detail.spreadChange * this.data.zoomFactor;
-  console.log(this.el.object3DMap.camera.zoom)
+    const newPosition = this.el.object3D.position.clone();
+    newPosition.y -= event.detail.spreadChange * this.data.zoomFactor;
+    newPosition.z -= event.detail.spreadChange * this.data.zoomFactor;
+
+    // Check and enforce movement boundaries relative to the container.
+    newPosition.x = Math.max(this.data.min.x, Math.min(this.data.max.x, newPosition.x));
+    newPosition.y = Math.max(this.data.min.y, Math.min(this.data.max.y, newPosition.y));
+    newPosition.z = Math.max(this.data.min.z, Math.min(this.data.max.z, newPosition.z));
+
+    this.el.object3D.position.copy(newPosition);
   }
 });
+
 
 // Component that detects and emits events for touch gestures
 
