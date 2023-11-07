@@ -50,6 +50,11 @@ AFRAME.registerComponent("gesture-handler", {
     const newX = this.el.object3D.position.x - event.detail.positionChange.x * this.data.movementFactor;
     if (newX >= this.data.minX && newX <= this.data.maxX) {
       this.el.object3D.position.x = newX;
+      console.log(
+        "X:", this.el.object3D.position.x,
+        "Y:", this.el.object3D.position.y,
+        "Z:", this.el.object3D.position.z
+      );  
     }
   },
 
