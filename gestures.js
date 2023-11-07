@@ -3,6 +3,8 @@ AFRAME.registerComponent("gesture-handler", {
     enabled: { default: true },
     movementFactor: { default: 0.5 },
     zoomFactor: { default: 2 },
+    minZoom: { default: 0.5 }, // Minimum zoom level
+    maxZoom: { default: 5 },   // Maximum zoom level
     handleZoom: { default: true },
     handleMovementHor: { default: true },
     handleMovementVert: { default: true },
@@ -67,7 +69,13 @@ AFRAME.registerComponent("gesture-handler", {
     
   handleZoom: function (event) {
     const camera = this.el.object3DMap.camera;
-    camera.zoom -= event.detail.spreadChange * this.data.zoomFactor;
+    const zoomChange = event.detail.spreadChange * this.data.zoomFactor;
+    const newZoom = camera.zoom - zoomChange;
+    const minZoom = this.data.minZoom;
+    const maxZoom = this.data.maxZoom;
+    
+    camera.zoom = Math.min(maxZoom, Math.max(minZoom, newZoom));
+
     camera.updateProjectionMatrix(); // Update the projection matrix
     console.log(camera.zoom);
   }
