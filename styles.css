@@ -23,10 +23,10 @@ a, a:link, a:visited, a:hover, a:active {
 .bot-bar {
     width: 100%;
     top: 500px;
-    background-color: rgba(15, 87, 135, 0.75);
+    background-color: rgba(255, 255, 255, 0.75);
     font-family: 'Titillium Web';
     text-align: center;
-    color: #fff;
+    color: rgb(15, 87, 135);
 }
 
 .bot-bar p {
@@ -686,15 +686,15 @@ a, a:link, a:visited, a:hover, a:active {
     .logo {
         width: 10vw;
     }
-    button{
+    /* button{
         width: 8vw;
-    }    
+    }     */
 }
 @media (orientation: portrait) {
     .logo {
         width: 20vw;
     }
-    button{
+    /* button{
         width: 12vw;
-    }    
+    }     */
 }
