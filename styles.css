@@ -48,6 +48,10 @@ h2 {
     background-color: #D7DEE3;
 }
 
+.hidden {
+    display: none;
+}
+
 .top-bar,
 .bot-bar {
     position: absolute;
