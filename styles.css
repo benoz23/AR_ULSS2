@@ -1,47 +1,50 @@
-a, a:link, a:visited, a:hover, a:active {
-    text-decoration: none !important;
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: 'Titillium Web', sans-serif;
 }
 
 .top-bar,
 .bot-bar {
-    position: absolute;
+    position: fixed;
     left: 0;
+    width: 100%;
     z-index: 998;
 }
 
 .top-bar {
     top: 0;
+    height: 50px;
     background-color: rgba(255, 255, 255, 0.75);
 }
 
 .logo {
-    padding: 2vh 3vh 1vh 3vh;
-    margin: 0px auto;
+    padding: 10px 15px 5px 15px;
+    margin: 0 auto;
 }
 
 .bot-bar {
-    width: 100%;
-    top: 500px;
-    background-color: rgba(255, 255, 255, 0.75);
-    font-family: 'Titillium Web', sans-serif;
+    bottom: 0;
     text-align: center;
     color: rgb(15, 87, 135);
 }
 
 .bot-bar p {
     font-size: 1rem;
-    margin: 1vh 0;
-    padding: 0 12vw;
+    margin: 10px 0;
+    padding: 0 20vw;
 }
 
 .a-switch-view {
-    font-family: 'Titillium Web', sans-serif;
     font-size: 13px;
     color: rgb(15, 87, 135);
     width: 100%;
     font-weight: 200;
     line-height: 16px;
-    position: absolute;
+    position: fixed;
     left: 20px;
     bottom: 20px;
 }
@@ -49,18 +52,18 @@ a, a:link, a:visited, a:hover, a:active {
 .a-switch-view-button {
     position: absolute;
     left: 0;
-    border: 0;
+    border: none;
     bottom: 0;
     cursor: pointer;
     min-width: 58px;
     min-height: 34px;
-    padding-block: 1px;
-    padding-inline: 6px;
+    padding: 0 6px;
     background: rgba(0, 0, 0, 0.20);
-    transition: background-color .05s ease;
-    -webkit-transition: background-color .05s ease;
+    transition: background-color 0.05s ease;
     z-index: 9999;
-    touch-action: manipulation; /* Prevent iOS double tap zoom on the button */
+    touch-action: manipulation;
+    font-size: 1rem;
+    font-weight: bold;
     color: #fff;
     text-align: center;
     line-height: 2.5;
@@ -69,19 +72,14 @@ a, a:link, a:visited, a:hover, a:active {
     border-radius: 7px;
 }
 
-.a-switch-view-button:active,
 .a-switch-view-button:hover,
-.a-enter-ar-button:active,
-.a-enter-ar-button:hover,
-.a-enter-vr-button:active,
-.a-enter-vr-button:hover  {
-  background-color: rgb(15, 87, 135) !important;
+.a-switch-view-button:active {
+    background-color: rgb(15, 87, 135);
 }
-
 
 #prev-button,
 #next-button {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     border: none;
     width: 12vw;
@@ -102,17 +100,12 @@ a, a:link, a:visited, a:hover, a:active {
 
 @media (orientation: landscape) {
     .logo {
-        width: 10vw;
+    width: 10vw;
     }
-    /* button{
-        width: 8vw;
-    }     */
 }
+
 @media (orientation: portrait) {
     .logo {
-        width: 20vw;
+    width: 20vw;
     }
-    /* button{
-        width: 12vw;
-    }     */
 }
