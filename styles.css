@@ -7,6 +7,22 @@ body {
     font-family: 'Titillium Web', sans-serif;
 }
 
+h1,
+h2 {
+    color: #F9D0AA;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 100;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 100;
+    font-style: italic;
+}
+
 .dark {
     background-color: #54575C;
 }
@@ -21,7 +37,7 @@ body {
 
 .top-bar,
 .bot-bar {
-    position: fixed;
+    position: absolute;
     left: 0;
     width: 100%;
     z-index: 998;
@@ -29,7 +45,6 @@ body {
 
 .top-bar {
     top: 0;
-    height: 50px;
     background-color: rgba(255, 255, 255, 0.75);
 }
 
@@ -56,7 +71,7 @@ body {
     width: 100%;
     font-weight: 200;
     line-height: 16px;
-    position: fixed;
+    position: absolute;
     left: 20px;
     bottom: 20px;
     z-index: 9999
@@ -92,7 +107,7 @@ body {
 
 #prev-button,
 #next-button {
-    position: fixed;
+    position: absolute;
     z-index: 999;
     border: none;
     width: 12vw;
