@@ -47,23 +47,25 @@ a, a:link, a:visited, a:hover, a:active {
 }
 
 .a-switch-view-button {
+    position: absolute;
+    left: 0;
     border: 0;
     bottom: 0;
     cursor: pointer;
     min-width: 58px;
     min-height: 34px;
-    padding-top: 0;
-    position: absolute;
-    left: 0;
+    padding-top: 0px 6px 1px 6px;
     background: rgba(0, 0, 0, 0.20);
     transition: background-color .05s ease;
     -webkit-transition: background-color .05s ease;
     z-index: 9999;
     touch-action: manipulation; /* Prevent iOS double tap zoom on the button */
     color: #fff;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
     user-select: none;
     outline: none;
-    margin-right: 10px;
     border-radius: 7px;
 }
 
