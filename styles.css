@@ -4,7 +4,7 @@ a, a:link, a:visited, a:hover, a:active {
 
 .top-bar,
 .bot-bar {
-    position: fixed;
+    position: absolute;
     left: 0;
     z-index: 998;
 }
@@ -32,6 +32,17 @@ a, a:link, a:visited, a:hover, a:active {
     font-size: 1rem;
     margin: 1vh 0;
     padding: 0 12vw;
+}
+
+.a-switch-view {
+    font-family: sans-serif, monospace;
+    font-size: 13px;
+    width: 100%;
+    font-weight: 200;
+    line-height: 16px;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
 }
 
 .a-switch-view-button {
@@ -70,7 +81,7 @@ a, a:link, a:visited, a:hover, a:active {
 
 #prev-button,
 #next-button {
-    position: fixed;
+    position: absolute;
     z-index: 999;
     border: none;
     width: 12vw;
