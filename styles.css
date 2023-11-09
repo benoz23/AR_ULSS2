@@ -7,6 +7,18 @@ body {
     font-family: 'Titillium Web', sans-serif;
 }
 
+.dark {
+    background-color: #54575C;
+}
+
+.light {
+    background-color: #F9D0AA;
+}
+
+.light-blue {
+    background-color: #D7DEE3;
+}
+
 .top-bar,
 .bot-bar {
     position: fixed;
