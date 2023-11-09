@@ -5,6 +5,7 @@ a {
 
 body {
     font-family: 'Titillium Web', sans-serif;
+    margin: 0;
 }
 
 h1,
@@ -29,6 +30,10 @@ h2 {
 
 .par {
     color: #D7DEE3;
+}
+
+.panel {
+    padding: 2vh;
 }
 
 .dark {
