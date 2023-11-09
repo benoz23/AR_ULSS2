@@ -46,10 +46,6 @@ a, a:link, a:visited, a:hover, a:active {
     bottom: 20px;
 }
 
-.a-switch-view::before {
-    content: "Se non visualizzi correttamente il contenuto";
-}
-
 .a-switch-view-button {
     border: 0;
     bottom: 0;
