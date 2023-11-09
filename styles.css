@@ -54,16 +54,14 @@ a, a:link, a:visited, a:hover, a:active {
     cursor: pointer;
     min-width: 58px;
     min-height: 34px;
-    padding-top: 0px 6px 1px 6px;
+    padding: 0px 6px 1px 6px;
     background: rgba(0, 0, 0, 0.20);
     transition: background-color .05s ease;
     -webkit-transition: background-color .05s ease;
     z-index: 9999;
     touch-action: manipulation; /* Prevent iOS double tap zoom on the button */
     color: #fff;
-    display: inline-block;
     text-align: center;
-    align-items: flex-start;
     user-select: none;
     outline: none;
     border-radius: 7px;
