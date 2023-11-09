@@ -13,14 +13,22 @@ h2 {
 }
 
 h1 {
-    font-size: 2.5rem;
-    font-weight: 100;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+h1 strong {
+    font-size: 3rem;
 }
 
 h2 {
     font-size: 1.5rem;
-    font-weight: 100;
     font-style: italic;
+    font-weight: 200;
+}
+
+.par {
+    color: #D7DEE3;
 }
 
 .dark {
