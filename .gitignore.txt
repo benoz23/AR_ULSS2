@@ -1,5 +1,2 @@
 .DS_store
-ai
-belnder
-markers
-scenes
+gitignore

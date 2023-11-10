@@ -33,20 +33,29 @@ h2 {
 }
 
 .panel {
-    padding: 2vh;
+    padding: vh;
 }
 
-.dark {
+.white-bkg {
+    background-color: #fff;
+}
+
+.dark-bkg {
     background-color: #54575C;
 }
 
-.light {
+.light-bkg {
     background-color: #F9D0AA;
 }
 
-.light-blue {
+.light-blue-bkg {
     background-color: #D7DEE3;
 }
+
+.st0 { 
+    fill: #54575C;
+}
+
 
 .hidden {
     display: none;
@@ -56,13 +65,11 @@ h2 {
 .bot-bar {
     position: absolute;
     left: 0;
-    width: 100%;
     z-index: 998;
 }
 
 .top-bar {
     top: 0;
-    background-color: rgba(255, 255, 255, 0.75);
 }
 
 .logo {
@@ -74,6 +81,7 @@ h2 {
     bottom: 0;
     text-align: center;
     color: rgb(15, 87, 135);
+    width: 100%;
 }
 
 .bot-bar p {
