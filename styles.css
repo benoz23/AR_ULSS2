@@ -1,3 +1,18 @@
+.parent {
+    padding: 20px;
+    background-color: lightgray;
+    position: relative;
+  }
+  
+  .child {
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: lightblue;
+    width: 100px;
+    height: 50px;
+  }
+  
 a {
     text-decoration: none;
     color: inherit;
@@ -29,11 +44,7 @@ h2 {
 }
 
 .par {
-    color: #D7DEE3;
-}
-
-.panel {
-    padding: vh;
+    color: #fff;
 }
 
 .white-bkg {
@@ -52,11 +63,6 @@ h2 {
     background-color: #D7DEE3;
 }
 
-.st0 { 
-    fill: #54575C;
-}
-
-
 .hidden {
     display: none;
 }
@@ -64,6 +70,7 @@ h2 {
 .top-bar,
 .bot-bar {
     position: absolute;
+    width: 100vw;
     left: 0;
     z-index: 998;
 }
@@ -72,9 +79,13 @@ h2 {
     top: 0;
 }
 
+.logo-container {
+    position: relative;
+    display: inline-block;
+}
+
 .logo {
-    padding: 10px 15px 5px 15px;
-    margin: 0 auto;
+    display: block;
 }
 
 .bot-bar {
@@ -151,13 +162,29 @@ h2 {
 }
 
 @media (orientation: landscape) {
+    .panel {
+        padding: 10vw;
+    }
+    
+    .logo-container {
+        padding: 2vw 5vw 2vw 10vw;
+    }    
+
     .logo {
-    width: 10vw;
+    height: 6vw;
     }
 }
 
 @media (orientation: portrait) {
+    .panel {
+        padding: 9vh 7vh;
+    }
+
+    .logo-container {
+        padding: 2vh 3.5vh 2vh 7vh;
+    }    
+
     .logo {
-    width: 20vw;
+        height: 5vh;
     }
 }
