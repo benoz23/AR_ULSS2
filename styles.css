@@ -114,13 +114,15 @@ h2 {
 }
 
 .panel {
-    padding: 10vh 10vw 0 10vw;
+    padding-left: 10vw;
+    padding-right: 10vw;
 }
 
 .top-bar {
     position: absolute;
     width: 80vw;
-    padding: 2vh 10vw;
+    padding-left: 10vw;
+    padding-right: 10vw;
     font-size: 0;
     line-height: 0;
 }
@@ -143,9 +145,14 @@ h2 {
 }
 
 @media (orientation: landscape) {
-    /* .top-bar {
-        padding: 2vh 10vw;
-    } */
+    .panel {
+        padding-top: 25vh;
+    }
+    
+    .top-bar {
+        padding-top: 4vh;
+        padding-bottom: 4vh;
+    }
 
     .logo {
         height: 12vh;
@@ -153,9 +160,14 @@ h2 {
 }
 
 @media (orientation: portrait) {
-    /* .top-bar {
-        padding: 2vh 10vw;
-    } */
+    .panel {
+        padding-top: 15vh;
+    }
+    
+    .top-bar {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+    }
 
     .logo {
         height: 6vh;
