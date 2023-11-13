@@ -112,7 +112,7 @@ h2 {
 .a-enter-ar-button:hover,
 .a-enter-vr-button:active,
 .a-enter-vr-button:hover {
-    background-color: rgb(15, 87, 135) !important;
+    background-color: #54575C !important;
 }
 
 .panel {
@@ -129,8 +129,7 @@ h2 {
     height: 100%;
 }
 
-.top-bar,
-.bot-bar {
+.top-bar {
     width: 80vw;
     padding-left: 10vw;
     padding-right: 10vw;
@@ -147,13 +146,26 @@ h2 {
     display: inline-block;
 }
 
-.bot-bar {
-    /* bottom: 0; */
+.in-scene {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.in-scene .bot-but {
+    border: 0;
 }
 
 .bot-but {
-    width: 25vw;
-    height: 100%;
+    display: block;
+    float: left;
+    width: 25%;
+    border: 5px solid #54575C;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 2;
 }
 
 .logo {
@@ -190,10 +202,6 @@ h2 {
     .logo {
         height: 12vh;
     }
-
-    .bot-bar {
-        height: 20vh;
-    }
 }
 
 @media (orientation: portrait) {
@@ -217,8 +225,5 @@ h2 {
 
     .logo {
         height: 6vh;
-    }
-    .bot-bar {
-        height: 20vh;
     }
 }

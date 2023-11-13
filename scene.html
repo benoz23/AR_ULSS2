@@ -27,6 +27,7 @@
         <a-scene
             id="scene"
             loading-screen="enabled: false"
+            vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton"
             gesture-detector>
             <a-assets>
                 <img id="1_percorsi" src="img/1_percorsi.png">
@@ -51,8 +52,11 @@
                 gesture-handler>
             </a-camera>
         </a-scene>
-        <div class="a-switch-view">
-            <a class="a-switch-view-button white-font" title="Vai alla visualizzazione semplificata" href="html/1_percorsi.html">CAMBIA VISTA</a>
+        <div class="bot-bar in-scene">
+            <a class="bot-but light-bkg dark-font" href="index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
+            <a class="bot-but light-bkg dark-font" href="html/1_percorsi.html" title="Vai alla visualizzazione 2D">2D</a>
+            <a id="myEnterARButton" class="bot-but light-bkg dark-font" href="#" title="Accedi alla realtà aumentata">AR</a>
+            <a id="myEnterVRButton" class="bot-but light-bkg dark-font" href="#" title="Accedi alla realtà virtuale">VR</a>
         </div>
     </body>
 </html>
