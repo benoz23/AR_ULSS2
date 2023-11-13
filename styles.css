@@ -233,11 +233,11 @@ h2 {
     }
 
     .logo {
-        height: 12vh;
+        height: 10vh;
     }
 
     .in-scene .logo {
-        height: 8vh !important;
+        height: 7vh !important;
     }    
 }
 
@@ -258,7 +258,7 @@ h2 {
     }
 
     .logo {
-        height: 6vh;
+        height: 4vh;
     }
 
     .in-scene .logo {
