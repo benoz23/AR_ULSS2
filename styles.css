@@ -9,13 +9,10 @@ body {
     margin: 0px;
 }
 
-h1,
-h2 {
-    margin: 0vh 0vw 2vh 0vw;
-}
-
 h1 {
+    margin: 0vh 0vw 2vh 0vw;
     font-size: 2rem;
+    line-height: 1.2;
     font-weight: 300;
 }
 
@@ -24,7 +21,9 @@ h1 strong {
 }
 
 h2 {
+    margin: 2vh 0vw 4vh 0vw;
     font-size: 1.2rem;
+    line-height: 1.2;
     font-style: italic;
     font-weight: 200;
 }
@@ -51,6 +50,28 @@ h2 {
 
 .light-blue-bkg {
     background-color: #D7DEE3;
+}
+
+.code {
+    margin: 10px auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+.red-bkg {
+    background-color: #ef776e;
+}
+
+.orange-bkg {
+    background-color: #f7ac6f;
+}
+
+.yellow-bkg {
+    background-color: #ffe37e;
+}
+
+.green-bkg {
+    background-color: #acd084;
 }
 
 .dark-font {
@@ -129,16 +150,17 @@ h2 {
     height: 100%;
 }
 
-.top-bar {
-    width: 80vw;
-    padding-left: 10vw;
-    padding-right: 10vw;
+.top-bar,
+.bot-bar {
+    position: fixed;
 }
 
 .top-bar {
-    position: absolute;
-    top: 0;
-    font-size: 0;
+    top: 0px;
+    width: 80vw;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    font-size: 0px;
     line-height: 0;
 }
 
@@ -146,26 +168,34 @@ h2 {
     display: inline-block;
 }
 
-.in-scene {
-    position: absolute;
+.bot-bar {
     bottom: 0px;
     width: 100%;
 }
 
-.in-scene .bot-but {
-    border: 0;
-}
-
 .bot-but {
-    display: block;
     float: left;
     width: 25%;
-    border: 5px solid #54575C;
+    min-height: 1px;
+    padding: 0 2px;
     box-sizing: border-box;
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
     line-height: 2;
+}
+
+.bot-but a,
+.bot-but div {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.in-scene {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
 }
 
 .logo {
@@ -184,9 +214,6 @@ h2 {
     .panel,
     .container {
         padding-top: 25vh;
-    }
-
-    .panel {
         padding-bottom: 25vh;
     }
 
@@ -208,9 +235,6 @@ h2 {
     .panel,
     .container {
         padding-top: 15vh;
-    }
-
-    .panel {
         padding-bottom: 15vh;
     }
 

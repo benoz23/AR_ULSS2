@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ULSS 2 - I percorsi del Pronto Soccorso</title>
         <meta name="description" content="Una serie di informazioni sul funzionamento del Pronto Soccorso e sui criteri di gestione delle priorità nella presa in cura dei pazienti.">
         
-        <link rel="icon" href="img/ico/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../img/ico/favicon.ico" type="image/x-icon">
 
         <link rel="stylesheet" href="../styles.css">
         
@@ -14,13 +14,37 @@
         <link href='https://fonts.googleapis.com/css?family=Titillium Web' rel='stylesheet'>
 
         <script src="https://cdn.jsdelivr.net/npm/core-js-bundle@3.33.2/minified.min.js"></script>
-        <script src='https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.js'></script>
         <script src="https://kit.fontawesome.com/1bbfd0af93.js" crossorigin="anonymous"></script>
-        <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-        <script src="main.js"></script>
-        <script src="gestures.js"></script>
+        <script src="../main.js"></script>
     </head>
-    <body class="panel dark-bkg">
-        <p class="par">HTML</p>
+    <body class="dark-bkg">
+        <div class="top-bar light-bkg">
+            <a href="https://www.aulss2.veneto.it">
+                <img class="logo" src="../img/logo/URP_outline.svg" alt="Azienda ULSS2 - Marca Trevigiana">
+            </a>
+        </div>
+        <div class="panel">
+            <h1 class="light-font"><strong>Area d’attesa</strong></h1>
+            <h2 class="light-font">Waiting area</h2>
+            <p class="white-font">Le persone in quest’area stanno aspettando di essere prese in cura da un medico.</p>
+            <p class="white-font">Il Pronto Soccorso è un reparto ospedaliero spesso molto affollato. Il nostro obiettivo è quello di prendere in cura ogni paziente il prima possibile, dando priorità ai casi più gravi.</p>
+            <p class="white-font">All’interno degli ambulatori, i medici stanno assistendo le persone con maggiore urgenza di ricevere cure.</p>
+            <p class="white-font">In Pronto Soccorso viene curato prima chi sta peggio. Questo significa che persone arrivate dopo di te potrebbero essere fatte entrare prima e  il tuo tempo d’attesa potrebbe protrarsi.</p>
+            <p class="white-font">Grazie per la pazienza.</p>
+        </div>
+        <div class="bot-bar dark-font">
+            <div class="bot-but">
+                <a class="light-bkg" href="4_codice.html" title="Precedente"><i class="fa-solid fa-caret-left"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="../index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="../scene.html" title="Vai alla visualizzazione 3D">3D</a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="6_ticket.html" title="Successivo"><i class="fa-solid fa-caret-right"></i></a>
+            </div>
+        </div>
     </body>
 </html>

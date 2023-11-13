@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,9 +21,11 @@
         <script src="gestures.js"></script>
     </head>
     <body>
-        <a class="top-bar white-bkg" href="https://www.aulss2.veneto.it">
-            <img class="logo" src="img/logo/ULSS_2_logo.svg" alt="Azienda ULSS2 - Marca Trevigiana">
-        </a>
+        <div class="top-bar light-bkg">
+            <a href="https://www.aulss2.veneto.it">
+                <img class="logo" src="img/logo/URP_outline.svg" alt="Azienda ULSS2 - Marca Trevigiana">
+            </a>
+        </div>
         <a-scene
             id="scene"
             loading-screen="enabled: false"
@@ -52,11 +54,19 @@
                 gesture-handler>
             </a-camera>
         </a-scene>
-        <div class="bot-bar in-scene">
-            <a class="bot-but light-bkg dark-font" href="index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
-            <a class="bot-but light-bkg dark-font" href="html/1_percorsi.html" title="Vai alla visualizzazione 2D">2D</a>
-            <a id="myEnterARButton" class="bot-but light-bkg dark-font" href="#" title="Accedi alla realtà aumentata">AR</a>
-            <a id="myEnterVRButton" class="bot-but light-bkg dark-font" href="#" title="Accedi alla realtà virtuale">VR</a>
+        <div class="bot-bar dark-font in-scene">
+            <div class="bot-but" no_af_hide>
+                <a id="myEnterARButton" class="light-bkg" href="#" title="Accedi alla realtà aumentata">AR</a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="html/1_percorsi.html" title="Vai alla visualizzazione 2D">2D</a>
+            </div>
+            <div class="bot-but" no_af_hide>
+                <a id="myEnterVRButton" class="light-bkg" href="#" title="Accedi alla realtà virtuale">VR</a>
+            </div>
         </div>
     </body>
 </html>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ULSS 2 - I percorsi del Pronto Soccorso</title>
         <meta name="description" content="Una serie di informazioni sul funzionamento del Pronto Soccorso e sui criteri di gestione delle priorità nella presa in cura dei pazienti.">
         
-        <link rel="icon" href="img/ico/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../img/ico/favicon.ico" type="image/x-icon">
 
         <link rel="stylesheet" href="../styles.css">
         
@@ -14,13 +14,36 @@
         <link href='https://fonts.googleapis.com/css?family=Titillium Web' rel='stylesheet'>
 
         <script src="https://cdn.jsdelivr.net/npm/core-js-bundle@3.33.2/minified.min.js"></script>
-        <script src='https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.js'></script>
         <script src="https://kit.fontawesome.com/1bbfd0af93.js" crossorigin="anonymous"></script>
-        <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-        <script src="main.js"></script>
-        <script src="gestures.js"></script>
+        <script src="../main.js"></script>
     </head>
-    <body class="panel dark-bkg">
-        <p class="par">HTML</p>
+    <body class="dark-bkg">
+        <div class="top-bar light-bkg">
+            <a href="https://www.aulss2.veneto.it">
+                <img class="logo" src="../img/logo/URP_outline.svg" alt="Azienda ULSS2 - Marca Trevigiana">
+            </a>
+        </div>
+        <div class="panel">
+            <h1 class="light-font"><strong>Il Triage</strong></h1>
+            <h2 class="light-font">Triage area</h2>
+            <p class="white-font">Il Triage è un metodo di valutazione standardizzato finalizzato a stabilire la priorità di presa in cura dei pazienti. Si basa sulla gravità delle condizioni all’accesso e sul loro potenziale rischio evolutivo.</p>
+            <p class="white-font">Questa valutazione viene effettuata da un infermiere specificamente formato per applicare rigorose procedure basate su linee guida nazionali e regionali.</p>
+            <p class="white-font">Tuttavia non si tratta di una diagnosi: l’infermiere del triage individua quali pazienti hanno bisogno di cure immediate e quali possono invece attendere un po’ di più.</p>
+            <p class="white-font">Per ottimizzare l‘ordine di accesso, ad ogni paziente viene assegnato un codice colore basato sulla sua situazione oggettiva di urgenza. Questo codice determina la priorità di presa in cura.</p>
+        </div>
+        <div class="bot-bar dark-font">
+            <div class="bot-but">
+                <a class="light-bkg" href="2_ps.html" title="Precedente"><i class="fa-solid fa-caret-left"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="../index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="../scene.html" title="Vai alla visualizzazione 3D">3D</a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="4_codice.html" title="Successivo"><i class="fa-solid fa-caret-right"></i></a>
+            </div>
+        </div>
     </body>
 </html>

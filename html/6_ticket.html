@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ULSS 2 - I percorsi del Pronto Soccorso</title>
         <meta name="description" content="Una serie di informazioni sul funzionamento del Pronto Soccorso e sui criteri di gestione delle priorità nella presa in cura dei pazienti.">
         
-        <link rel="icon" href="img/ico/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../img/ico/favicon.ico" type="image/x-icon">
 
         <link rel="stylesheet" href="../styles.css">
         
@@ -14,13 +14,35 @@
         <link href='https://fonts.googleapis.com/css?family=Titillium Web' rel='stylesheet'>
 
         <script src="https://cdn.jsdelivr.net/npm/core-js-bundle@3.33.2/minified.min.js"></script>
-        <script src='https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.js'></script>
         <script src="https://kit.fontawesome.com/1bbfd0af93.js" crossorigin="anonymous"></script>
-        <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-        <script src="main.js"></script>
-        <script src="gestures.js"></script>
+        <script src="../main.js"></script>
     </head>
-    <body class="panel dark-bkg">
-        <p class="par">HTML</p>
+    <body class="dark-bkg">
+        <div class="top-bar light-bkg">
+            <a href="https://www.aulss2.veneto.it">
+                <img class="logo" src="../img/logo/URP_outline.svg" alt="Azienda ULSS2 - Marca Trevigiana">
+            </a>
+        </div>
+        <div class="panel">
+            <h1 class="light-font"><strong>Il ticket</strong></h1>
+            <h2 class="light-font">Co-payment of medical charges</h2>
+            <p class="white-font">Il ticket di Pronto Soccorso è composto da una quota fissa, dovuta per l’accesso e indipendente dall’eventuale visita medica, e da una quota variabile, calcolata in base alle prestazioni erogate</p>
+            <p class="white-font">In Pronto Soccorso pagano il ticket solo le persone che vengono dimesse con un codice d’uscita Bianco. Questo secondo codice colore tiene in considerazione anche gli elementi raccolti durante la visita: in alcuni casi potrebbe quindi essere differente dal codice di priorità attribuito all’accesso.</p>
+            <p class="white-font">Il codice d’uscita viene assegnato dal medico in fase di chiusura del verbale e deriva da precisi criteri standard definiti dalla Regione Veneto e uniformi per tutte le aziende sanitarie regionali.</p>
+        </div>
+        <div class="bot-bar dark-font">
+            <div class="bot-but">
+                <a class="light-bkg" href="5_attesa.html" title="Precedente"><i class="fa-solid fa-caret-left"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="../index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
+            </div>
+            <div class="bot-but">
+                <a class="light-bkg" href="../scene.html" title="Vai alla visualizzazione 3D">3D</a>
+            </div>
+            <div class="bot-but">
+                <div class="light-bkg"><i class="fa-solid fa-stop"></i></div>
+            </div>
+        </div>
     </body>
 </html>
