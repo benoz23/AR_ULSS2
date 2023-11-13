@@ -58,6 +58,8 @@ h2 {
     text-align: center;
 }
 
+.pictogram 
+
 .red-bkg {
     background-color: #ef776e;
 }
@@ -192,12 +194,6 @@ h2 {
     height: 100%;
 }
 
-.in-scene {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-}
-
 .logo {
     display: block;
 }
@@ -208,6 +204,15 @@ h2 {
     display: inline-block;
     font-weight: bold;
     font-size: 1.5rem;
+}
+
+.in-scene.top-bar {
+    background-color: transparent !important;
+}
+
+.in-scene.bot-bar a,
+.in-scene.bot-bar div {
+    background-color: transparent !important;
 }
 
 @media (orientation: landscape) {
@@ -229,6 +234,10 @@ h2 {
     .logo {
         height: 12vh;
     }
+
+    .in-scene .logo {
+        height: 8vh !important;
+    }    
 }
 
 @media (orientation: portrait) {
@@ -250,4 +259,8 @@ h2 {
     .logo {
         height: 6vh;
     }
+
+    .in-scene .logo {
+        height: 4vh !important;
+    }    
 }
