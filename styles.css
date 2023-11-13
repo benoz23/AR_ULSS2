@@ -4,6 +4,7 @@ a {
 }
 
 body {
+    overflow-x: hidden;
     font-family: 'Titillium Web', sans-serif;
     margin: 0px;
 }
@@ -28,6 +29,10 @@ h2 {
     font-weight: 200;
 }
 
+.par {
+    color: #fff;
+}
+
 .white-bkg {
     background-color: #fff;
 }
@@ -38,6 +43,10 @@ h2 {
 
 .light-bkg {
     background-color: #F9D0AA;
+}
+
+.blue-bkg {
+    background-color: rgb(15, 87, 135);
 }
 
 .light-blue-bkg {
@@ -54,6 +63,10 @@ h2 {
 
 .white-font {
     color: #fff;
+}
+
+.blue-font {
+    color: rgb(15, 87, 135);
 }
 
 .hidden {
@@ -99,28 +112,7 @@ h2 {
 .a-enter-ar-button:hover,
 .a-enter-vr-button:active,
 .a-enter-vr-button:hover {
-    background-color: rgb(15, 87, 135);
-}
-
-#prev-button,
-#next-button {
-    position: absolute;
-    z-index: 999;
-    border: none;
-    width: 12vw;
-    height: 12vh;
-    top: 60vh;
-    background-color: rgba(15, 87, 135, 0.75);
-    font-size: 2rem;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-#prev-button {
-    left: 0px;
-}
-
-#next-button {
-    right: 0px;
+    background-color: rgb(15, 87, 135) !important;
 }
 
 .panel {
@@ -128,17 +120,40 @@ h2 {
     padding-right: 10vw;
 }
 
-.top-bar {
-    position: absolute;
+.container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.container img {
+    height: 100%;
+}
+
+.top-bar,
+.bot-bar {
     width: 80vw;
     padding-left: 10vw;
     padding-right: 10vw;
+}
+
+.top-bar {
+    position: absolute;
+    top: 0;
     font-size: 0;
     line-height: 0;
 }
 
 .top-bar a {
     display: inline-block;
+}
+
+.bot-bar {
+    /* bottom: 0; */
+}
+
+.bot-but {
+    width: 25vw;
+    height: 100%;
 }
 
 .logo {
@@ -149,14 +164,22 @@ h2 {
     margin-top: 5vh;
     padding: 1vh 10vw;
     display: inline-block;
-    color: #54575C;
     font-weight: bold;
     font-size: 1.5rem;
 }
 
 @media (orientation: landscape) {
-    .panel {
+    .panel,
+    .container {
         padding-top: 25vh;
+    }
+
+    .panel {
+        padding-bottom: 25vh;
+    }
+
+    .container {
+        height: 200vh;
     }
     
     .top-bar {
@@ -167,13 +190,26 @@ h2 {
     .logo {
         height: 12vh;
     }
+
+    .bot-bar {
+        height: 20vh;
+    }
 }
 
 @media (orientation: portrait) {
-    .panel {
+    .panel,
+    .container {
         padding-top: 15vh;
     }
-    
+
+    .panel {
+        padding-bottom: 15vh;
+    }
+
+    .container {
+        height: 100vh;
+    }
+
     .top-bar {
         padding-top: 2vh;
         padding-bottom: 2vh;
@@ -181,5 +217,8 @@ h2 {
 
     .logo {
         height: 6vh;
+    }
+    .bot-bar {
+        height: 20vh;
     }
 }
