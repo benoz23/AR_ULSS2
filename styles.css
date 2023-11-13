@@ -214,6 +214,7 @@ h2 {
 .in-scene.bot-bar a,
 .in-scene.bot-bar div {
     background-color: transparent !important;
+    color: #F9D0AA;
 }
 
 @media (orientation: landscape) {
