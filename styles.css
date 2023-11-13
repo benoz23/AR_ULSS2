@@ -183,9 +183,9 @@ h2 {
     padding: 0 2px;
     box-sizing: border-box;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    line-height: 2;
+    line-height: 1.5;
 }
 
 .bot-but a,
