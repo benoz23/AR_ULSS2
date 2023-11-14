@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Check if sensors are present and enabled
   let sensorsEnabled = false;
 
-  if (navigator.permissions) {
+  if ('accelerometer' in window && 'gyroscope' in window) {
+      // Check permissions only if the sensor APIs are present
       navigator.permissions.query({ name: "accelerometer" }).then((result) => {
           console.log("Accelerometer permission state:", result.state);
           if (result.state === "granted") {
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
           console.error("Error checking gyroscope permission:", error);
       });
   } else {
-      console.log("navigator.permissions is not supported.");
+      console.log("Accelerometer and gyroscope not supported on this device.");
   }
 
   // Check if A-frame is supported
