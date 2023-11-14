@@ -1,48 +1,49 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Check for A-Frame support
-  var afSupported = typeof AFRAME !== 'undefined' && document.querySelector('a-scene');
+  // Check for both Device Motion and Orientation APIs
+  const deviceMotionSupported = 'ondevicemotion' in window;
+  const deviceOrientationSupported = 'ondeviceorientation' in window;
 
-  // Check for Device Motion API support
-  var motionSensorsEnabled = 'ondevicemotion' in window;
+  // Common logic for handling A-Frame or non-A-Frame scenarios
+  function handleDeviceCapabilities(isAFramePresent) {
+    const hideSelector = isAFramePresent ? '[yes_af_hide]' : '[no_af_hide]';
+    const removeSelector = isAFramePresent ? '[yes_af_remove]' : '[no_af_remove]';
 
-  if (motionSensorsEnabled) {
-    // Listen for motion events to check if motion sensors are enabled
+    const hideElements = document.querySelectorAll(hideSelector);
+    const removeElements = document.querySelectorAll(removeSelector);
+
+    hideElements.forEach(element => element.style.visibility = 'hidden');
+    removeElements.forEach(element => element.style.display = 'none');
+  }
+
+  // Handle device motion API
+  if (deviceMotionSupported) {
     window.addEventListener('devicemotion', function (event) {
-      motionSensorsEnabled = event.accelerationIncludingGravity !== null;
-      if (motionSensorsEnabled) {
+      if (event.accelerationIncludingGravity) {
         console.log('Motion sensors enabled');
+        handleDeviceCapabilities(typeof AFRAME !== 'undefined');
+      } else {
+        console.log('Motion sensors not enabled');
+        handleDeviceCapabilities(false);
       }
     });
   } else {
-    console.error('Error: Device Motion API is not supported');
+    console.log('Device Motion API not supported');
+    handleDeviceCapabilities(false);
   }
 
-  // Check for Device Orientation API support
-  var orientationSensorsEnabled = motionSensorsEnabled && 'ondeviceorientation' in window;
-
-  if (orientationSensorsEnabled) {
-    // Listen for orientation events to check if orientation sensors are enabled
+  // Handle device orientation API
+  if (deviceOrientationSupported) {
     window.addEventListener('deviceorientation', function (event) {
-      orientationSensorsEnabled = event.alpha !== null || event.beta !== null || event.gamma !== null;
-      if (orientationSensorsEnabled) {
+      if (event.alpha !== null || event.beta !== null || event.gamma !== null) {
         console.log('Orientation sensors enabled');
+        handleDeviceCapabilities(typeof AFRAME !== 'undefined');
+      } else {
+        console.log('Orientation sensors not enabled');
+        handleDeviceCapabilities(false);
       }
     });
   } else {
-    console.error('Error: Device Orientation API is not supported');
+    console.log('Device Orientation API not supported');
+    handleDeviceCapabilities(false);
   }
-
-  // Select elements to hide or remove based on feature support
-  var elementsToHide = afSupported && orientationSensorsEnabled ? document.querySelectorAll('[yes_af_hide]') : document.querySelectorAll('[no_af_hide]');
-  var elementsToRemove = afSupported && orientationSensorsEnabled ? document.querySelectorAll('[yes_af_remove]') : document.querySelectorAll('[no_af_remove]');
-
-  // Apply CSS styles to elements with "visibility: hidden"
-  elementsToHide.forEach(function (element) {
-    element.classList.add('hidden');
-  });
-
-  // Apply CSS styles to elements with "display: none"
-  elementsToRemove.forEach(function (element) {
-    element.style.display = 'none';
-  });
 });
