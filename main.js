@@ -1,19 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Check if the Device Motion API is supported
-  const isDeviceMotionSupported = 'DeviceMotionEvent' in window && typeof DeviceMotionEvent === 'function';
-  console.log('Device Motion API Supported:', isDeviceMotionSupported);
-
-  // Check if motion sensors are enabled
-  const isMotionSensorsEnabled = isDeviceMotionSupported && ('ontouchstart' in window || window.DeviceMotionEvent && 'function' === typeof window.DeviceMotionEvent.requestPermission);
-  console.log('Motion Sensors Enabled:', isMotionSensorsEnabled);
-
-  // Check if the Device Orientation API is supported
-  const isDeviceOrientationSupported = 'DeviceOrientationEvent' in window && typeof DeviceOrientationEvent === 'function';
-  console.log('Device Orientation API Supported:', isDeviceOrientationSupported);
-
-  // Check if orientation sensors are enabled
-  const isOrientationSensorsEnabled = isDeviceOrientationSupported && ('ontouchstart' in window || window.DeviceOrientationEvent && 'function' === typeof window.DeviceOrientationEvent.requestPermission);
-  console.log('Orientation Sensors Enabled:', isOrientationSensorsEnabled);
+  // Check if the Generic Sensor API is supported
+  const isGenericSensorApiSupported = 'Sensor' in window && 'AbsoluteOrientationSensor' in window;
+  console.log('Generic Sensor API Supported:', isGenericSensorApiSupported);
 
   // Check if A-Frame is supported
   const isAFrameSupported = typeof AFRAME !== 'undefined';
@@ -44,11 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log('Elements with no_af_remove attribute:', noAfRemoveElements);
 
   // Check conditions and apply styles accordingly
-  if (
-    isMotionSensorsEnabled &&
-    isOrientationSensorsEnabled &&
-    isAFrameSupported
-  ) {
+  if (isGenericSensorApiSupported && isAFrameSupported) {
     console.log('All conditions met. Applying styles for "yes" elements.');
     // Apply styles for "yes" elements
     applyStyles(yesAfHideElements, 'hidden', '');
