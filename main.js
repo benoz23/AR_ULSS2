@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check if the device has motion sensors enabled
     window.addEventListener('devicemotion', function(event) {
-      if (event.accelerationIncludingGravity) {
+      if (event.accelerationIncludingGravity !== null) {
         // Motion sensors are enabled
         console.log('Motion sensors enabled');
-        
+
         // Check if Device Orientation API is supported
         if ('ondeviceorientation' in window) {
           // Device Orientation API is supported
