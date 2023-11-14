@@ -5,17 +5,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to request motion sensor permission
   async function requestMotionPermission() {
-    if (DeviceMotionEvent.requestPermission) {
-      try {
-        await DeviceMotionEvent.requestPermission();
-        return true;
-      } catch (error) {
-        console.error('Motion sensor permission denied:', error);
-        return false;
+    try {
+      // Use polyfill if native method is not available
+      if (!DeviceMotionEvent.requestPermission) {
+        DeviceMotionEvent.requestPermission = function () {
+          console.log('Using polyfill for DeviceMotionEvent.requestPermission()');
+          return Promise.resolve(true);
+        };
       }
-    } else {
-      // Assume permission is granted if requestPermission is not available
+
+      // Request permission using native method or polyfill
+      await DeviceMotionEvent.requestPermission();
       return true;
+    } catch (error) {
+      console.error('Motion sensor permission denied:', error);
+      return false;
     }
   }
 
@@ -37,17 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to request orientation sensor permission
   async function requestOrientationPermission() {
-    if (DeviceOrientationEvent.requestPermission) {
-      try {
-        await DeviceOrientationEvent.requestPermission();
-        return true;
-      } catch (error) {
-        console.error('Orientation sensor permission denied:', error);
-        return false;
+    try {
+      // Use polyfill if native method is not available
+      if (!DeviceOrientationEvent.requestPermission) {
+        DeviceOrientationEvent.requestPermission = function () {
+          console.log('Using polyfill for DeviceOrientationEvent.requestPermission()');
+          return Promise.resolve(true);
+        };
       }
-    } else {
-      // Assume permission is granted if requestPermission is not available
+
+      // Request permission using native method or polyfill
+      await DeviceOrientationEvent.requestPermission();
       return true;
+    } catch (error) {
+      console.error('Orientation sensor permission denied:', error);
+      return false;
     }
   }
 
@@ -101,14 +109,4 @@ document.addEventListener("DOMContentLoaded", function () {
       // Apply styles for "yes" elements
       applyStyles(yesAfHideElements, 'hidden', '');
       applyStyles(yesAfRemoveElements, 'visible', 'none');
-    } else {
-      console.log('Conditions not met. Applying styles for "no" elements.');
-      // Apply styles for "no" elements
-      applyStyles(noAfHideElements, 'hidden', '');
-      applyStyles(noAfRemoveElements, 'visible', 'none');
     }
-  }
-
-  // Execute the check and apply styles
-  checkAndApplyStyles();
-});
