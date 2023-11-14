@@ -109,4 +109,14 @@ document.addEventListener("DOMContentLoaded", function () {
       // Apply styles for "yes" elements
       applyStyles(yesAfHideElements, 'hidden', '');
       applyStyles(yesAfRemoveElements, 'visible', 'none');
+    } else {
+      console.log('Conditions not met. Applying styles for "no" elements.');
+      // Apply styles for "no" elements
+      applyStyles(noAfHideElements, 'hidden', '');
+      applyStyles(noAfRemoveElements, 'visible', 'none');
     }
+  }
+
+  // Execute the check and apply styles
+  checkAndApplyStyles();
+});
