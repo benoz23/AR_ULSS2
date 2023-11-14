@@ -8,15 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
           if (event.rotationRate && (event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma)) {
               sensorsEnabled = true;
               console.log("Gyroscope present.");
+                // Check if A-frame is supported
+              const aFrameSupported = typeof AFRAME !== "undefined";
+              console.log("A-frame supported:", aFrameSupported);
           }
       });
   } else {
       console.log("DeviceMotionEvent is not supported on this device.");
   }
-
-  // Check if A-frame is supported
-  const aFrameSupported = typeof AFRAME !== "undefined";
-  console.log("A-frame supported:", aFrameSupported);
 
   if (!sensorsEnabled || !aFrameSupported) {
       // Apply styles to elements with attributes "no_af_hide" and "no_af_remove"
