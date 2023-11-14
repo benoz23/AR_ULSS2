@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function isSensorsAndAFrameSupported() {
       // Check if A-Frame is supported
       if (!window.AFRAME) {
+          console.log('A-Frame is not supported.');
           return false;
       }
 
       // Check if sensors are present and enabled
       if (!navigator.permissions || !navigator.permissions.query || !AFRAME.scenes.length) {
+          console.log('Sensors are not present or enabled or A-Frame scenes are not found.');
           return false;
       }
 
@@ -22,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
       var elementsNoRemove = document.querySelectorAll('[no_af_remove]');
 
       if (isSensorsAndAFrameSupported()) {
+          console.log('Sensors are present and enabled, and A-Frame is supported.');
+
           for (const element of elementsToHide) {
               element.style.visibility = 'hidden';
           }
@@ -30,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
               element.style.display = 'none';
           }
       } else {
+          console.log('Sensors are not present or enabled or A-Frame is not supported.');
+
           for (const element of elementsNoHide) {
               element.style.visibility = 'hidden';
           }
