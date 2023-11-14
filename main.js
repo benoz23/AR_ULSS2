@@ -1,53 +1,50 @@
-// Function to handle device capabilities based on A-Frame presence and sensor availability
-function handleDeviceCapabilities(isAFramePresent, hasMotionSensors, hasOrientationSensors) {
-  const hideSelector = isAFramePresent ? '[yes_af_hide]' : '[no_af_hide]';
-  const removeSelector = isAFramePresent ? '[yes_af_remove]' : '[no_af_remove]';
+document.addEventListener("DOMContentLoaded", function () {
+  // Check if the Device Motion API is supported
+  const isDeviceMotionSupported = 'DeviceMotionEvent' in window;
 
-  const hideElements = document.querySelectorAll(hideSelector);
-  const removeElements = document.querySelectorAll(removeSelector);
+  // Check if motion sensors are enabled
+  const isMotionSensorsEnabled = isDeviceMotionSupported && typeof window.DeviceMotionEvent.requestPermission === 'function';
 
-  if (hasMotionSensors || hasOrientationSensors) {
-    hideElements.forEach(element => element.style.visibility = 'hidden');
-    removeElements.forEach(element => element.style.display = 'none');
-  } else {
-    console.log('Neither motion nor orientation sensors detected');
+  // Check if the Device Orientation API is supported
+  const isDeviceOrientationSupported = 'DeviceOrientationEvent' in window;
+
+  // Check if orientation sensors are enabled
+  const isOrientationSensorsEnabled = isDeviceOrientationSupported && typeof window.DeviceOrientationEvent.requestPermission === 'function';
+
+  // Check if A-Frame is supported
+  const isAFrameSupported = typeof AFRAME !== 'undefined';
+
+  // Function to apply styles based on conditions
+  function applyStyles(elements, visibilityStyle, displayStyle) {
+    elements.forEach(function (element) {
+      element.style.visibility = visibilityStyle;
+      element.style.display = displayStyle;
+    });
   }
-}
 
-// Check for device motion sensors
-const hasMotionSensors = 'ondevicemotion' in window;
+  // Elements with "yes_af_hide" attribute
+  const yesAfHideElements = document.querySelectorAll('[yes_af_hide]');
+  // Elements with "yes_af_remove" attribute
+  const yesAfRemoveElements = document.querySelectorAll('[yes_af_remove]');
+  // Elements with "no_af_hide" attribute
+  const noAfHideElements = document.querySelectorAll('[no_af_hide]');
+  // Elements with "no_af_remove" attribute
+  const noAfRemoveElements = document.querySelectorAll('[no_af_remove]');
 
-if (hasMotionSensors) {
-  // Attach event listener for device motion
-  window.addEventListener('devicemotion', function (event) {
-    if (event.accelerationIncludingGravity) {
-      console.log('Motion sensors enabled');
-      handleDeviceCapabilities(typeof AFRAME !== 'undefined', true, false);
-    } else {
-      console.log('Motion sensors not enabled');
-      handleDeviceCapabilities(typeof AFRAME !== 'undefined', false, false);
-    }
-  });
-} else {
-  console.log('Device Motion API not supported or no motion sensors detected');
-  handleDeviceCapabilities(typeof AFRAME !== 'undefined', false, false);
-}
-
-// Check for device orientation sensors
-const hasOrientationSensors = 'ondeviceorientation' in window;
-
-if (hasOrientationSensors) {
-  // Attach event listener for device orientation
-  window.addEventListener('deviceorientation', function (event) {
-    if (event.alpha !== null || event.beta !== null || event.gamma !== null) {
-      console.log('Orientation sensors enabled');
-      handleDeviceCapabilities(typeof AFRAME !== 'undefined', true, true);
-    } else {
-      console.log('Orientation sensors not enabled');
-      handleDeviceCapabilities(typeof AFRAME !== 'undefined', true, false);
-    }
-  });
-} else {
-  console.log('Device Orientation API not supported or no orientation sensors detected');
-  handleDeviceCapabilities(typeof AFRAME !== 'undefined', false, false);
-}
+  // Check conditions and apply styles accordingly
+  if (
+    isDeviceMotionSupported &&
+    isMotionSensorsEnabled &&
+    isDeviceOrientationSupported &&
+    isOrientationSensorsEnabled &&
+    isAFrameSupported
+  ) {
+    // Apply styles for "yes" elements
+    applyStyles(yesAfHideElements, 'hidden', '');
+    applyStyles(yesAfRemoveElements, 'visible', 'none');
+  } else {
+    // Apply styles for "no" elements
+    applyStyles(noAfHideElements, 'hidden', '');
+    applyStyles(noAfRemoveElements, 'visible', 'none');
+  }
+});
