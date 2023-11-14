@@ -1,3 +1,8 @@
+
+.hidden {
+    display: none;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -93,52 +98,6 @@ h2 {
     color: rgb(15, 87, 135);
 }
 
-.hidden {
-    display: none;
-}
-
-.a-switch-view {
-    font-size: 13px;
-    font-weight: 200;
-    line-height: 16px;
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
-    z-index: 9999
-}
-
-.a-switch-view-button {
-    position: absolute;
-    left: 0px;
-    border: none;
-    bottom: 0px;
-    cursor: pointer;
-    min-width: 58px;
-    min-height: 34px;
-    padding: 0px 6px;
-    background: rgba(0, 0, 0, 0.20);
-    transition: background-color 0.05s ease;
-    z-index: 9999;
-    touch-action: manipulation;
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-    line-height: 2.5;
-    white-space: nowrap;
-    user-select: none;
-    outline: none;
-    border-radius: 7px;
-}
-
-.a-switch-view-button:hover,
-.a-switch-view-button:active,
-.a-enter-ar-button:active,
-.a-enter-ar-button:hover,
-.a-enter-vr-button:active,
-.a-enter-vr-button:hover {
-    background-color: #54575C !important;
-}
-
 .panel {
     padding-left: 10vw;
     padding-right: 10vw;
@@ -185,7 +144,6 @@ h2 {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
-    line-height: 2;
 }
 
 .bot-but a,
@@ -217,6 +175,25 @@ h2 {
     color: #F9D0AA;
 }
 
+.t-table tr {
+    vertical-align: top;
+}
+
+.t-table,
+.ps-table {
+    width: 100%;
+}
+
+.ps-table img {
+    margin-right: 10px;
+    padding: 10px;
+    height: 50px;
+}
+
+.ps-table p {
+    margin: 0px;
+}
+
 @media (orientation: landscape) {
     .panel,
     .container {
@@ -229,8 +206,8 @@ h2 {
     }
     
     .top-bar {
-        padding-top: 4vh;
-        padding-bottom: 4vh;
+        padding-top: 3vh;
+        padding-bottom: 2vh;
     }
 
     .logo {
@@ -239,7 +216,15 @@ h2 {
 
     .in-scene .logo {
         height: 7vh !important;
-    }    
+    }
+
+    .bot-but {
+        line-height: 1.5;
+    }
+
+    .t-table img {
+        width: 10vw;
+    }
 }
 
 @media (orientation: portrait) {
@@ -264,5 +249,13 @@ h2 {
 
     .in-scene .logo {
         height: 4vh !important;
-    }    
+    }
+
+    .bot-but {
+        line-height: 2;
+    }
+
+    .t-table img {
+        width: 10vh;
+    }
 }
