@@ -4,8 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if ('DeviceMotionEvent' in window) {
       window.addEventListener("devicemotion", function (event) {
+          console.log("DeviceMotionEvent received:", event);
           if (event.rotationRate && (event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma)) {
               sensorsEnabled = true;
+              console.log("Gyroscope present.");
           }
       });
   } else {
@@ -20,10 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // Apply styles to elements with attributes "no_af_hide" and "no_af_remove"
       applyStyles("[no_af_hide]", "visibility: hidden");
       applyStyles("[no_af_remove]", "display: none");
+      console.log("Fallback: Showing elements with attributes 'no_af_remove' and hiding 'no_af_hide'.");
   } else {
       // Apply styles to elements with attributes "yes_af_hide" and "yes_af_remove"
       applyStyles("[yes_af_hide]", "visibility: hidden");
       applyStyles("[yes_af_remove]", "display: none");
+      console.log("Applying styles for 'yes_af_hide' and 'yes_af_remove'.");
   }
 });
 
