@@ -3,55 +3,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const isDeviceMotionSupported = 'DeviceMotionEvent' in window;
   console.log('Device Motion API Supported:', isDeviceMotionSupported);
 
-  // Function to request motion sensor permission
-  async function requestMotionPermission() {
-    try {
-      await DeviceMotionEvent.requestPermission();
-      return true;
-    } catch (error) {
-      console.error('Motion sensor permission denied:', error);
-      return false;
-    }
-  }
-
   // Check if motion sensors are enabled
-  async function checkMotionSensors() {
-    if (isDeviceMotionSupported) {
-      const motionPermission = await requestMotionPermission();
-      console.log('Motion Sensors Enabled:', motionPermission);
-      return motionPermission;
-    } else {
-      console.log('Motion Sensors not supported.');
-      return false;
-    }
-  }
+  const isMotionSensorsEnabled = isDeviceMotionSupported;
+  console.log('Motion Sensors Enabled:', isMotionSensorsEnabled);
 
   // Check if the Device Orientation API is supported
   const isDeviceOrientationSupported = 'DeviceOrientationEvent' in window;
   console.log('Device Orientation API Supported:', isDeviceOrientationSupported);
 
-  // Function to request orientation sensor permission
-  async function requestOrientationPermission() {
-    try {
-      await DeviceOrientationEvent.requestPermission();
-      return true;
-    } catch (error) {
-      console.error('Orientation sensor permission denied:', error);
-      return false;
-    }
-  }
-
   // Check if orientation sensors are enabled
-  async function checkOrientationSensors() {
-    if (isDeviceOrientationSupported) {
-      const orientationPermission = await requestOrientationPermission();
-      console.log('Orientation Sensors Enabled:', orientationPermission);
-      return orientationPermission;
-    } else {
-      console.log('Orientation Sensors not supported.');
-      return false;
-    }
-  }
+  const isOrientationSensorsEnabled = isDeviceOrientationSupported;
+  console.log('Orientation Sensors Enabled:', isOrientationSensorsEnabled);
 
   // Check if A-Frame is supported
   const isAFrameSupported = typeof AFRAME !== 'undefined';
@@ -82,23 +44,19 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log('Elements with no_af_remove attribute:', noAfRemoveElements);
 
   // Check conditions and apply styles accordingly
-  async function checkAndApplyStyles() {
-    const motionSensorsEnabled = await checkMotionSensors();
-    const orientationSensorsEnabled = await checkOrientationSensors();
-
-    if (motionSensorsEnabled && orientationSensorsEnabled && isAFrameSupported) {
-      console.log('All conditions met. Applying styles for "yes" elements.');
-      // Apply styles for "yes" elements
-      applyStyles(yesAfHideElements, 'hidden', '');
-      applyStyles(yesAfRemoveElements, 'visible', 'none');
-    } else {
-      console.log('Conditions not met. Applying styles for "no" elements.');
-      // Apply styles for "no" elements
-      applyStyles(noAfHideElements, 'hidden', '');
-      applyStyles(noAfRemoveElements, 'visible', 'none');
-    }
+  if (
+    isMotionSensorsEnabled &&
+    isOrientationSensorsEnabled &&
+    isAFrameSupported
+  ) {
+    console.log('All conditions met. Applying styles for "yes" elements.');
+    // Apply styles for "yes" elements
+    applyStyles(yesAfHideElements, 'hidden', '');
+    applyStyles(yesAfRemoveElements, 'visible', 'none');
+  } else {
+    console.log('Conditions not met. Applying styles for "no" elements.');
+    // Apply styles for "no" elements
+    applyStyles(noAfHideElements, 'hidden', '');
+    applyStyles(noAfRemoveElements, 'visible', 'none');
   }
-
-  // Execute the check and apply styles
-  checkAndApplyStyles();
 });
