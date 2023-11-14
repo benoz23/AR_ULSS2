@@ -3,17 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const isDeviceMotionSupported = 'DeviceMotionEvent' in window;
   console.log('Device Motion API Supported:', isDeviceMotionSupported);
 
-  // Check if motion sensors are enabled
-  const isMotionSensorsEnabled = isDeviceMotionSupported;
-  console.log('Motion Sensors Enabled:', isMotionSensorsEnabled);
-
   // Check if the Device Orientation API is supported
   const isDeviceOrientationSupported = 'DeviceOrientationEvent' in window;
   console.log('Device Orientation API Supported:', isDeviceOrientationSupported);
-
-  // Check if orientation sensors are enabled
-  const isOrientationSensorsEnabled = isDeviceOrientationSupported;
-  console.log('Orientation Sensors Enabled:', isOrientationSensorsEnabled);
 
   // Check if A-Frame is supported
   const isAFrameSupported = typeof AFRAME !== 'undefined';
@@ -44,18 +36,18 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log('Elements with no_af_remove attribute:', noAfRemoveElements);
 
   // Check conditions and apply styles accordingly
-  if (
-    isMotionSensorsEnabled &&
-    isOrientationSensorsEnabled &&
-    isAFrameSupported
-  ) {
-    console.log('All conditions met. Applying styles for "yes" elements.');
-    // Apply styles for "yes" elements
-    applyStyles(yesAfHideElements, 'hidden', '');
-    applyStyles(yesAfRemoveElements, 'visible', 'none');
+  if (isAFrameSupported) {
+    if (isDeviceMotionSupported) {
+      // Apply styles for "yes" elements
+      applyStyles(yesAfHideElements, 'hidden', '');
+      applyStyles(yesAfRemoveElements, 'visible', 'none');
+    } else {
+      // Apply styles for "no" elements
+      applyStyles(noAfHideElements, 'hidden', '');
+      applyStyles(noAfRemoveElements, 'visible', 'none');
+    }
   } else {
-    console.log('Conditions not met. Applying styles for "no" elements.');
-    // Apply styles for "no" elements
+    // A-Frame not supported, apply styles for "no" elements
     applyStyles(noAfHideElements, 'hidden', '');
     applyStyles(noAfRemoveElements, 'visible', 'none');
   }
