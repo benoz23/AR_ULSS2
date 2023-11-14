@@ -8,12 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
           if (result.state === "granted") {
               sensorsEnabled = true;
           }
+      }).catch((error) => {
+          console.error("Error checking accelerometer permission:", error);
       });
+
       navigator.permissions.query({ name: "gyroscope" }).then((result) => {
           console.log("Gyroscope permission state:", result.state);
           if (result.state === "granted") {
               sensorsEnabled = true;
           }
+      }).catch((error) => {
+          console.error("Error checking gyroscope permission:", error);
       });
   } else {
       console.log("navigator.permissions is not supported.");
