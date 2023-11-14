@@ -5,12 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to request motion sensor permission
   async function requestMotionPermission() {
-    try {
-      await DeviceMotionEvent.requestPermission();
+    if (DeviceMotionEvent.requestPermission) {
+      try {
+        await DeviceMotionEvent.requestPermission();
+        return true;
+      } catch (error) {
+        console.error('Motion sensor permission denied:', error);
+        return false;
+      }
+    } else {
+      // Assume permission is granted if requestPermission is not available
       return true;
-    } catch (error) {
-      console.error('Motion sensor permission denied:', error);
-      return false;
     }
   }
 
@@ -32,12 +37,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to request orientation sensor permission
   async function requestOrientationPermission() {
-    try {
-      await DeviceOrientationEvent.requestPermission();
+    if (DeviceOrientationEvent.requestPermission) {
+      try {
+        await DeviceOrientationEvent.requestPermission();
+        return true;
+      } catch (error) {
+        console.error('Orientation sensor permission denied:', error);
+        return false;
+      }
+    } else {
+      // Assume permission is granted if requestPermission is not available
       return true;
-    } catch (error) {
-      console.error('Orientation sensor permission denied:', error);
-      return false;
     }
   }
 
