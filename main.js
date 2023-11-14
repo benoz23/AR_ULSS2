@@ -1,51 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Function to check if sensors are present and enabled and A-Frame is supported
-  function isSensorsAndAFrameSupported() {
-      // Check if A-Frame is supported
-      if (!window.AFRAME) {
-          console.log('A-Frame is not supported.');
-          return false;
-      }
+  // Check if sensors are present and enabled
+  let sensorsEnabled = false;
 
-      // Check if sensors are present and enabled
-      if (!navigator.permissions || !navigator.permissions.query || !AFRAME.scenes.length) {
-          console.log('Sensors are not present or enabled or A-Frame scenes are not found.');
-          return false;
-      }
-
-      return true;
+  if (navigator.permissions) {
+      navigator.permissions.query({ name: "accelerometer" }).then((result) => {
+          console.log("Accelerometer permission state:", result.state);
+          if (result.state === "granted") {
+              sensorsEnabled = true;
+          }
+      });
+      navigator.permissions.query({ name: "gyroscope" }).then((result) => {
+          console.log("Gyroscope permission state:", result.state);
+          if (result.state === "granted") {
+              sensorsEnabled = true;
+          }
+      });
+  } else {
+      console.log("navigator.permissions is not supported.");
   }
 
-  // Function to apply styles based on conditions
-  function applyStyles() {
-      var elementsToHide = document.querySelectorAll('[yes_af_hide]');
-      var elementsToRemove = document.querySelectorAll('[yes_af_remove]');
-      var elementsNoHide = document.querySelectorAll('[no_af_hide]');
-      var elementsNoRemove = document.querySelectorAll('[no_af_remove]');
+  // Check if A-frame is supported
+  const aFrameSupported = typeof AFRAME !== "undefined";
+  console.log("A-frame supported:", aFrameSupported);
 
-      if (isSensorsAndAFrameSupported()) {
-          console.log('Sensors are present and enabled, and A-Frame is supported.');
-
-          for (const element of elementsToHide) {
-              element.style.visibility = 'hidden';
-          }
-
-          for (const element of elementsToRemove) {
-              element.style.display = 'none';
-          }
-      } else {
-          console.log('Sensors are not present or enabled or A-Frame is not supported.');
-
-          for (const element of elementsNoHide) {
-              element.style.visibility = 'hidden';
-          }
-
-          for (const element of elementsNoRemove) {
-              element.style.display = 'none';
-          }
-      }
+  if (sensorsEnabled && aFrameSupported) {
+      // Apply styles to elements with attributes "yes_af_hide" and "yes_af_remove"
+      applyStyles("[yes_af_hide]", "visibility: hidden");
+      applyStyles("[yes_af_remove]", "display: none");
+  } else {
+      // Apply styles to elements with attributes "no_af_hide" and "no_af_remove"
+      applyStyles("[no_af_hide]", "visibility: hidden");
+      applyStyles("[no_af_remove]", "display: none");
   }
-
-  // Call the function when the DOM content has finished loading
-  applyStyles();
 });
+
+function applyStyles(selector, styles) {
+  const elements = document.querySelectorAll(selector);
+  elements.forEach(function (element) {
+      element.style.cssText += ";" + styles;
+  });
+}
