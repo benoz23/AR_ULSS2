@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Check if the Device Motion API is supported
-  const isDeviceMotionSupported = 'DeviceMotionEvent' in window;
+  const isDeviceMotionSupported = 'DeviceMotionEvent' in window && typeof DeviceMotionEvent === 'function';
   console.log('Device Motion API Supported:', isDeviceMotionSupported);
 
   // Check if motion sensors are enabled
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log('Motion Sensors Enabled:', isMotionSensorsEnabled);
 
   // Check if the Device Orientation API is supported
-  const isDeviceOrientationSupported = 'DeviceOrientationEvent' in window;
+  const isDeviceOrientationSupported = 'DeviceOrientationEvent' in window && typeof DeviceOrientationEvent === 'function';
   console.log('Device Orientation API Supported:', isDeviceOrientationSupported);
 
   // Check if orientation sensors are enabled
