@@ -1,48 +1,31 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function() {
   // Check if sensors are present and enabled
-  let sensorsEnabled = false;
+  const hasSensors = navigator.sensors && navigator.sensors.enabled;
 
-  if ('accelerometer' in window && 'gyroscope' in window) {
-      // Check permissions only if the sensor APIs are present
-      navigator.permissions.query({ name: "accelerometer" }).then((result) => {
-          console.log("Accelerometer permission state:", result.state);
-          if (result.state === "granted") {
-              sensorsEnabled = true;
-          }
-      }).catch((error) => {
-          console.error("Error checking accelerometer permission:", error);
-      });
+  // Check if A-Frame is supported
+  const hasAFrame = typeof AFrame !== 'undefined';
 
-      navigator.permissions.query({ name: "gyroscope" }).then((result) => {
-          console.log("Gyroscope permission state:", result.state);
-          if (result.state === "granted") {
-              sensorsEnabled = true;
-          }
-      }).catch((error) => {
-          console.error("Error checking gyroscope permission:", error);
-      });
+  // Apply visibility or display styles based on the conditions
+  const yesAfHideElements = document.querySelectorAll('[yes_af_hide]');
+  const yesAfRemoveElements = document.querySelectorAll('[yes_af_remove]');
+  const noAfHideElements = document.querySelectorAll('[no_af_hide]');
+  const noAfRemoveElements = document.querySelectorAll('[no_af_remove]');
+
+  if (hasSensors && hasAFrame) {
+    for (const element of yesAfHideElements) {
+      element.style.visibility = 'hidden';
+    }
+
+    for (const element of yesAfRemoveElements) {
+      element.style.display = 'none';
+    }
   } else {
-      console.log("Accelerometer and gyroscope not supported on this device.");
-  }
+    for (const element of noAfHideElements) {
+      element.style.visibility = 'hidden';
+    }
 
-  // Check if A-frame is supported
-  const aFrameSupported = typeof AFRAME !== "undefined";
-  console.log("A-frame supported:", aFrameSupported);
-
-  if (!sensorsEnabled || !aFrameSupported) {
-      // Apply styles to elements with attributes "no_af_hide" and "no_af_remove"
-      applyStyles("[no_af_hide]", "visibility: hidden");
-      applyStyles("[no_af_remove]", "display: none");
-  } else {
-      // Apply styles to elements with attributes "yes_af_hide" and "yes_af_remove"
-      applyStyles("[yes_af_hide]", "visibility: hidden");
-      applyStyles("[yes_af_remove]", "display: none");
+    for (const element of noAfRemoveElements) {
+      element.style.display = 'none';
+    }
   }
 });
-
-function applyStyles(selector, styles) {
-  const elements = document.querySelectorAll(selector);
-  elements.forEach(function (element) {
-      element.style.cssText += ";" + styles;
-  });
-}
