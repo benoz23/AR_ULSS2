@@ -257,6 +257,16 @@ h2 {
     }
 }
 
+.if-supp-hide,
+.if-no-supp-hide {
+    visibility: hidden;
+}
+
+.if-supp-remove,
+.if-no-supp-remove {
+    display: none;
+}
+
 @media  screen and (max-width: 1023px) {
     #show-on-mobile {
         display: block;
