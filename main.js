@@ -51,10 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 applyStyles(".if-sup-remove", "display: block");
                 console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
             }
-
-            // Remove the event listener after handling the event
-            window.removeEventListener("devicemotion", handleDeviceMotionEvent);
         }
+
+        // Remove the event listener after handling the event
+        window.removeEventListener("devicemotion", handleDeviceMotionEvent);
     }
 
     if ('DeviceMotionEvent' in window) {
@@ -74,6 +74,6 @@ document.addEventListener("DOMContentLoaded", function () {
 function applyStyles(selector, styles) {
     const elements = document.querySelectorAll(selector);
     elements.forEach(function (element) {
-        element.style.cssText += ";" + styles;
+        element.style.cssText = styles; // Replace existing styles
     });
 }
