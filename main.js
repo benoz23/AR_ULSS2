@@ -10,11 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if rotationRate data is present
         if (event.rotationRate) {
-            // Check if rotationRate values are not all null or undefined
+            // Check if all rotationRate values are not null, undefined, or zero
             const hasValidRotationRate = (
                 event.rotationRate.alpha !== null &&
                 event.rotationRate.beta !== null &&
-                event.rotationRate.gamma !== null
+                event.rotationRate.gamma !== null &&
+                event.rotationRate.alpha !== 0 &&
+                event.rotationRate.beta !== 0 &&
+                event.rotationRate.gamma !== 0
             );
 
             if (hasValidRotationRate) {
@@ -38,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Applying styles for 'if-sup-hide' and 'if-sup-remove'.");
                 }
             } else {
-                // Gyroscope data is not present or all values are null or undefined
+                // Gyroscope data is not present or all values are null, undefined, or zero
                 console.log("Gyroscope not present or invalid rotationRate values.");
 
                 // Apply styles to elements with class "if-no-sup-hide" and "if-no-sup-remove"
