@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
                         fallbackContentShown = true;
                         originalContentShown = false;
+                    } else {
+                        console.log("Original content already shown, skipping fallback.");
                     }
                 } else {
                     // Check if fallback content is not already shown
@@ -50,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         console.log("Applying styles for 'if-sup-hide' and 'if-sup-remove'.");
                         originalContentShown = true;
                         fallbackContentShown = false;
+                    } else {
+                        console.log("Fallback content already shown, skipping original.");
                     }
                 }
             } else {
@@ -66,6 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
                     fallbackContentShown = true;
                     originalContentShown = false;
+                } else {
+                    console.log("Original content already shown, skipping fallback.");
                 }
             }
 
@@ -89,6 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
             fallbackContentShown = true;
             originalContentShown = false;
+        } else {
+            console.log("Original content already shown, skipping fallback.");
         }
     }
 });
