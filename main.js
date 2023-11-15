@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if rotationRate data is present
         if (event.rotationRate) {
+            console.log("RotationRate data present:", event.rotationRate);
+
             // Check if all rotationRate values are not null, undefined, or zero
             const hasValidRotationRate = (
                 event.rotationRate.alpha !== null &&
@@ -57,23 +59,28 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    if ('DeviceMotionEvent' in window) {
-        window.addEventListener("devicemotion", handleDeviceMotionEvent);
-    } else {
-        console.log("DeviceMotionEvent is not supported on this device.");
+    // Delay attaching the event listener
+    setTimeout(function () {
+        if ('ondevicemotion' in window) {
+            window.addEventListener("devicemotion", handleDeviceMotionEvent);
+            console.log("devicemotion event listener attached.");
+        } else {
+            console.log("DeviceMotionEvent is not supported on this device.");
 
-        // Apply styles to elements with class "if-no-sup-hide" and "if-no-sup-remove" if sensors are not supported
-        applyStyles(".if-no-sup-hide", "visibility: hidden");
-        applyStyles(".if-no-sup-remove", "display: none");
-        applyStyles(".if-sup-hide", "visibility: visible");
-        applyStyles(".if-sup-remove", "display: block");
-        console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
-    }
+            // Apply styles to elements with class "if-no-sup-hide" and "if-no-sup-remove" if sensors are not supported
+            applyStyles(".if-no-sup-hide", "visibility: hidden");
+            applyStyles(".if-no-sup-remove", "display: none");
+            applyStyles(".if-sup-hide", "visibility: visible");
+            applyStyles(".if-sup-remove", "display: block");
+            console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
+        }
+    }, 1000); // Adjust the delay time as needed
 });
 
 function applyStyles(selector, styles) {
     const elements = document.querySelectorAll(selector);
     elements.forEach(function (element) {
+        console.log("Applying styles to element:", element);
         element.style.cssText = styles; // Replace existing styles
     });
 }
