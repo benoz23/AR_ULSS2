@@ -293,9 +293,11 @@ h2 {
 .if-sup-hide,
 .if-no-sup-hide {
     visibility: hidden;
+    transition: all .5 ease-in-out;
 }
 
 .if-sup-remove,
 .if-no-sup-remove {
     display: none;
+    transition: all .5 ease-in-out;
 }

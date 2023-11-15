@@ -20,6 +20,17 @@ function applyStylesForHTMLView() {
     applyStyles(".if-sup-remove", "display: block");
 }
 
+// Check if the browser is Safari
+function isSafari() {
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+}
+
+if (isSafari()) {
+    // Apply styles for Safari
+    applyStylesForHTMLView();
+    console.log("Showing HTML view for Safari.");
+}
+
 function handleDeviceMotionEvent(event) {
     console.log("DeviceMotionEvent received:", event);
 
@@ -82,14 +93,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }, 1000); // Adjust the delay time as needed
 });
-
-// Check if the browser is Safari
-function isSafari() {
-    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-}
-
-if (isSafari()) {
-    // Apply styles for Safari
-    applyStylesForHTMLView();
-    console.log("Showing HTML view for Safari.");
-}
