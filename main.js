@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("A-frame supported:", aFrameSupported);
 
     let sensorsEnabled = false;
-    
+
+    if ('DeviceMotionEvent' in window) {
         window.addEventListener("devicemotion", function (event) {
             console.log("DeviceMotionEvent received:", event);
             if (event.rotationRate && (event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma)) {
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     applyStyles("[yes_af_remove]", "display: none");
                     console.log("Applying styles for 'yes_af_hide' and 'yes_af_remove'.");
                 }
+            }
         });
     } else {
         console.log("DeviceMotionEvent is not supported on this device.");
