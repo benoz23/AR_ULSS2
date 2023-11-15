@@ -16,10 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const hasValidRotationRate = (
                 event.rotationRate.alpha !== null &&
                 event.rotationRate.beta !== null &&
-                event.rotationRate.gamma !== null &&
-                event.rotationRate.alpha !== 0 &&
-                event.rotationRate.beta !== 0 &&
-                event.rotationRate.gamma !== 0
+                event.rotationRate.gamma !== null
             );
 
             if (hasValidRotationRate) {
