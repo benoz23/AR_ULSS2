@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Check if rotationRate data is present
         if (event.rotationRate) {
+            console.log("RotationRate data present:", event.rotationRate);
+
             // Check if all rotationRate values are not null, undefined, or zero
             const hasValidRotationRate = (
                 event.rotationRate.alpha !== null &&
@@ -74,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function applyStyles(selector, styles) {
     const elements = document.querySelectorAll(selector);
     elements.forEach(function (element) {
+        console.log("Applying styles to element:", element);
         element.style.cssText = styles; // Corrected line
     });
 }
