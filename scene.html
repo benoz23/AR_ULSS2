@@ -16,7 +16,7 @@
         <script src="https://cdn.jsdelivr.net/npm/core-js-bundle@3.33.2/minified.min.js"></script>
         <script src='https://cdn.jsdelivr.net/npm/webxr-polyfill@latest/build/webxr-polyfill.js'></script>
         <script src="https://kit.fontawesome.com/1bbfd0af93.js" crossorigin="anonymous"></script>
-        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
         <script src="main.js"></script>
         <script src="gestures.js"></script>
     </head>
@@ -33,6 +33,7 @@
             <a-scene
                 id="scene"
                 loading-screen="enabled: false"
+                vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton"
                 gesture-detector>
                 <a-assets>
                     <img id="1_percorsi" src="img/1_percorsi.png">
@@ -58,11 +59,17 @@
                 </a-camera>
             </a-scene>
             <div class="bot-bar in-scene dark-font">
+                <div class="bot-but" no_af_hide>
+                    <a id="myEnterARButton" class="light-bkg" href="#" title="Accedi alla realtà aumentata">AR</a>
+                </div>
                 <div class="bot-but">
                     <a class="light-bkg" href="index.html" title="Torna alla pagina iniziale"><i class="fa-solid fa-house"></i></a>
                 </div>
                 <div class="bot-but">
                     <a class="light-bkg" href="html/1_percorsi.html" title="Vai alla visualizzazione 2D">2D</a>
+                </div>
+                <div class="bot-but" no_af_hide>
+                    <a id="myEnterVRButton" class="light-bkg" href="#" title="Accedi alla realtà virtuale">VR</a>
                 </div>
             </div>
         </div>
