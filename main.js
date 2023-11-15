@@ -9,7 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("DeviceMotionEvent received:", event);
 
         // Check if rotationRate data is present and non-zero
-        if (event.rotationRate && (event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma)) {
+        if (event.rotationRate && (
+            event.rotationRate.alpha !== 0 ||
+            event.rotationRate.beta !== 0 ||
+            event.rotationRate.gamma !== 0
+        )) {
             sensorsEnabled = true;
             console.log("Gyroscope present.");
 
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Applying styles for 'if-sup-hide' and 'if-sup-remove'.");
             }
         } else {
-            // Gyroscope data is not present
+            // Gyroscope data is not present or is zero
             console.log("Gyroscope not present.");
 
             // Apply styles to elements with class "if-no-sup-hide" and "if-no-sup-remove"
