@@ -257,16 +257,6 @@ h2 {
     }
 }
 
-.if-supp-hide,
-.if-no-supp-hide {
-    visibility: hidden;
-}
-
-.if-supp-remove,
-.if-no-supp-remove {
-    display: none;
-}
-
 @media  screen and (max-width: 1023px) {
     #show-on-mobile {
         display: block;
@@ -298,4 +288,14 @@ h2 {
     h2 {
         font-size: 1.5rem;
     }
+}
+
+.if-sup-hide,
+.if-no-sup-hide {
+    visibility: hidden;
+}
+
+.if-sup-remove,
+.if-no-sup-remove {
+    display: none;
 }
