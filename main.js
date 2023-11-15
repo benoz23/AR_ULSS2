@@ -30,14 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     applyStyles(".if-no-sup-remove", "display: none");
                     applyStyles(".if-sup-hide", "visibility: visible");
                     applyStyles(".if-sup-remove", "display: block");
-                    console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
+                    console.log("Showing fallback because A-frame is not supported.");
                 } else {
                     // Apply styles to elements with class "if-sup-hide" and "if-sup-remove"
-                    applyStyles(".if-sup-hide", "visibility: hidden");
-                    applyStyles(".if-sup-remove", "display: none");
                     applyStyles(".if-no-sup-hide", "visibility: visible");
                     applyStyles(".if-no-sup-remove", "display: block");
-                    console.log("Applying styles for 'if-sup-hide' and 'if-sup-remove'.");
+                    applyStyles(".if-sup-hide", "visibility: hidden");
+                    applyStyles(".if-sup-remove", "display: none");
+                    console.log("Showing 3D.");
                 }
             } else {
                 // Gyroscope data is not present or all values are null, undefined, or zero
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 applyStyles(".if-no-sup-remove", "display: none");
                 applyStyles(".if-sup-hide", "visibility: visible");
                 applyStyles(".if-sup-remove", "display: block");
-                console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
+                console.log("Showing fallback because gyroscope is not present or rotationRate values are invalid.");
             }
 
             // Remove the event listener after handling the event
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             applyStyles(".if-no-sup-remove", "display: none");
             applyStyles(".if-sup-hide", "visibility: visible");
             applyStyles(".if-sup-remove", "display: block");
-            console.log("Fallback: Showing elements with class 'if-no-sup-remove' and hiding 'if-no-sup-hide'.");
+            console.log("Showing fallback because DeviceMotionEvent is not supported on this device.");
         }
     }, 1000); // Adjust the delay time as needed
 });
